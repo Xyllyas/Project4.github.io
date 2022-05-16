@@ -832,7 +832,9 @@ h4 {
 .bg-presentation {
     background-image: url("img/image-de-presentation.webp");
 }
-
+footer li a {
+    font-size: 14px;
+}
 @media (max-width: 1024px) {
     .bloc {
         padding-left: 20px;
@@ -909,6 +911,7 @@ h4 {
     h5,
     h6,
     p,
+    q,
     #disqus_thread {
         padding-left: 10px!important;
         padding-right: 10px!important;
