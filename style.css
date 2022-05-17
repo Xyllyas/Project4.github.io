@@ -91,7 +91,7 @@ a:hover {
 }
 
 .texture-paper::before {
-    background: url("img/texture-paper.webp");
+    background: url("img/texture-paper.png");
     background-size: 280px 280px;
 }
 
@@ -646,7 +646,6 @@ h4,
 h5,
 h6,
 p,
-q,
 label,
 .btn,
 a {
@@ -678,11 +677,7 @@ a {
 }
 
 p {
-    font-size: 14px;
-}
-q{
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 11px;
 }
 
 .tight-width-whitespace {
@@ -709,21 +704,18 @@ q{
     margin: auto auto auto auto;
 }
 
-h4 {
+h2 {
     font-size: 22px;
     line-height: 1.4em;
 }
 
 h3 {
     font-size: 15px;
+    text-transform: uppercase;
     font-weight: 700;
     color: #333333!important;
 }
-h5{
-    font-size: 15px;
-    font-weight: 700;
-    color: #333333!important;
-}
+
 .med-width-whitespace {
     max-width: 800px;
     margin: auto auto auto auto;
@@ -818,23 +810,21 @@ h4 {
 }
 
 .bg-dots-bg {
-    background-image: url("img/dots-bg.webp");
+    background-image: url("img/dots-bg.png");
 }
 
 .bg-lines-h2-bg {
-    background-image: url("img/lines-h2-bg.webp");
+    background-image: url("img/lines-h2-bg.png");
 }
 
 .bg-banniere {
-    background-image: url("img/agence-la-panthere.webp");
+    background-image: url("img/agence-la-panthere.jpg");
 }
 
 .bg-presentation {
-    background-image: url("img/image-de-presentation.webp");
+    background-image: url("img/image-de-presentation.bmp");
 }
-footer li a {
-    font-size: 14px;
-}
+
 @media (max-width: 1024px) {
     .bloc {
         padding-left: 20px;
@@ -911,7 +901,6 @@ footer li a {
     h5,
     h6,
     p,
-    q,
     #disqus_thread {
         padding-left: 10px!important;
         padding-right: 10px!important;
