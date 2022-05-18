@@ -747,6 +747,16 @@ h1 {
     justify-content: center;
     align-items: center;
 }
+.col-sm-4 ul{
+    padding: 0;
+    margin: 0;
+}
+.col-sm-4 li{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    height: 48px;
+}
 .col-sm-6 img{
     width: 320px;
     height: 320px;
@@ -879,7 +889,7 @@ h1 {
     background-image: url("img/image-de-presentation.webp");
 }
 footer ul li a {
-    font-size: 14px;
+    font-size: 16px;
 }
 @media (max-width: 1024px) {
     .bloc {
