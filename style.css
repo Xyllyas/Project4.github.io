@@ -308,7 +308,8 @@ a:hover {
 }
 
 .navbar-brand img[src$=svg] {
-    min-width: 100px;
+    width: 218px;
+    height: 40px;
 }
 
 .nav-center .navbar-brand img {
@@ -683,10 +684,10 @@ q{
     font-weight: 600;
 }
 
-.tight-width-whitespace {
+/* .tight-width-whitespace {
     max-width: 600px;
     margin: auto auto auto auto;
-}
+} */
 
 .h1 {
     font-size: 20px;
@@ -740,7 +741,20 @@ h1 {
 .black {
     color: #000!important;
 }
-
+.col-sm-6{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.col-sm-6 img{
+    min-width: 320px;
+    height: 320px;
+}
+.col-sm-12 img{
+    width: 100px;
+    height: 100px;
+}
 .portfolio-thumb {
     margin-bottom: 24px;
 }
@@ -810,9 +824,6 @@ h1 {
     width: 530px;
     height: 120px;
     background-color: rgba(83, 61, 60, 0.8);
-}
-.text-justify{
-    text-align: justify;
 }
 .black-background .col-sm-12{
     display: flex;
