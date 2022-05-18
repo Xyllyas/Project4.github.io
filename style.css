@@ -445,9 +445,7 @@ nav .caret {
     margin-bottom: 40px;
 }
 
-.btn {
-    margin: 0 5px 5px 0;
-}
+
 
 .btn.pull-right {
     margin: 0 0 5px 5px;
@@ -652,7 +650,7 @@ label,
 a {
     font-family: "helvetica";
     font-weight: 400;
-    color: #575757!important;
+    color: #000!important;
 }
 
 .container {
@@ -696,7 +694,6 @@ q{
 }
 
 .cta-hero {
-    margin-top: 22px;
     color: #FFFFFF!important;
     text-transform: uppercase;
     padding: 12px 28px 12px 28px;
@@ -731,10 +728,7 @@ h5{
 }
 
 h1 {
-    color: #333333!important;
-}
-
-h4 {
+    margin: 0 !important;
     color: #333333!important;
 }
 
@@ -743,8 +737,8 @@ h4 {
     margin-top: 24px;
 }
 
-.white {
-    color: #FFFFFF!important;
+.black {
+    color: #000!important;
 }
 
 .portfolio-thumb {
@@ -761,7 +755,7 @@ h4 {
 }
 
 .black-background {
-    background-color: rgba(165, 147, 99, 0.7);
+    background-color: rgba(85, 62, 36, 0.8);
     padding: 40px 40px 40px 40px;
 }
 
@@ -781,19 +775,52 @@ h4 {
 .bgc-atomic-tangerine {
     background-color: #F3976C;
 }
-
+.bloc .column{
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    gap: 20px;
+}
+.white{
+    color: #B6B6B6 !important;
+}
 .tc-white {
     color: #F3976C!important;
+    line-height: 50px;
 }
-
+.tc-white-3 {
+    color: #F3976C!important;
+}
+.tc-black{
+    color: #000;
+}
+.bg-text-pres{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+    background-color: rgba(83, 61, 60, 0.8);  
+}
+.bg-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 530px;
+    height: 200px;
+    background-color: rgba(83, 61, 60, 0.8);
+}
 .btn-atomic-tangerine {
     background: #F3976C;
-    color: #FFFFFF!important;
+    color: #000!important;
+    font-weight: 700;
+    font-size: 28px;
 }
 
 .btn-atomic-tangerine:hover {
     background: #c27956!important;
-    color: #FFFFFF!important;
+    color: #000!important;
 }
 
 .ltc-white {
@@ -832,7 +859,7 @@ h4 {
 .bg-presentation {
     background-image: url("img/image-de-presentation.webp");
 }
-footer li a {
+footer ul li a {
     font-size: 14px;
 }
 @media (max-width: 1024px) {
