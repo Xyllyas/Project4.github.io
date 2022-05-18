@@ -748,7 +748,7 @@ h1 {
     align-items: center;
 }
 .col-sm-6 img{
-    min-width: 320px;
+    width: 320px;
     height: 320px;
 }
 .col-sm-12 img{
