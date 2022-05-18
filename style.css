@@ -808,8 +808,16 @@ h1 {
     justify-content: center;
     align-items: center;
     width: 530px;
-    height: 200px;
+    height: 120px;
     background-color: rgba(83, 61, 60, 0.8);
+}
+.text-justify{
+    text-align: justify;
+}
+.black-background .col-sm-12{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .btn-atomic-tangerine {
     background: #F3976C;
