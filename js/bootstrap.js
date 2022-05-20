@@ -1,6 +1,946 @@
 /*!
-  * Bootstrap v5.0.2 (https://getbootstrap.com/)
-  * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
-  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
-  */
-!function(t,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e(require("@popperjs/core")):"function"==typeof define&&define.amd?define(["@popperjs/core"],e):(t="undefined"!=typeof globalThis?globalThis:t||self).bootstrap=e(t.Popper)}(this,(function(t){"use strict";function e(t){if(t&&t.__esModule)return t;var e=Object.create(null);return t&&Object.keys(t).forEach((function(i){if("default"!==i){var s=Object.getOwnPropertyDescriptor(t,i);Object.defineProperty(e,i,s.get?s:{enumerable:!0,get:function(){return t[i]}})}})),e.default=t,Object.freeze(e)}var i=e(t);const s={find:(t,e=document.documentElement)=>[].concat(...Element.prototype.querySelectorAll.call(e,t)),findOne:(t,e=document.documentElement)=>Element.prototype.querySelector.call(e,t),children:(t,e)=>[].concat(...t.children).filter((t=>t.matches(e))),parents(t,e){const i=[];let s=t.parentNode;for(;s&&s.nodeType===Node.ELEMENT_NODE&&3!==s.nodeType;)s.matches(e)&&i.push(s),s=s.parentNode;return i},prev(t,e){let i=t.previousElementSibling;for(;i;){if(i.matches(e))return[i];i=i.previousElementSibling}return[]},next(t,e){let i=t.nextElementSibling;for(;i;){if(i.matches(e))return[i];i=i.nextElementSibling}return[]}},n="transitionend",o=t=>{do{t+=Math.floor(1e6*Math.random())}while(document.getElementById(t));return t},r=t=>{let e=t.getAttribute("data-bs-target");if(!e||"#"===e){let i=t.getAttribute("href");if(!i||!i.includes("#")&&!i.startsWith("."))return null;i.includes("#")&&!i.startsWith("#")&&(i=`#${i.split("#")[1]}`),e=i&&"#"!==i?i.trim():null}return e},a=t=>{const e=r(t);return e&&document.querySelector(e)?e:null},l=t=>{const e=r(t);return e?document.querySelector(e):null},c=t=>{t.dispatchEvent(new Event(n))},h=t=>!(!t||"object"!=typeof t)&&(void 0!==t.jquery&&(t=t[0]),void 0!==t.nodeType),d=t=>h(t)?t.jquery?t[0]:t:"string"==typeof t&&t.length>0?s.findOne(t):null,u=(t,e,i)=>{Object.keys(i).forEach((s=>{const n=i[s],o=e[s],r=o&&h(o)?"element":null==(a=o)?`${a}`:{}.toString.call(a).match(/\s([a-z]+)/i)[1].toLowerCase();var a;if(!new RegExp(n).test(r))throw new TypeError(`${t.toUpperCase()}: Option "${s}" provided type "${r}" but expected type "${n}".`)}))},g=t=>!(!h(t)||0===t.getClientRects().length)&&"visible"===getComputedStyle(t).getPropertyValue("visibility"),f=t=>!t||t.nodeType!==Node.ELEMENT_NODE||(!!t.classList.contains("disabled")||(void 0!==t.disabled?t.disabled:t.hasAttribute("disabled")&&"false"!==t.getAttribute("disabled"))),m=t=>{if(!document.documentElement.attachShadow)return null;if("function"==typeof t.getRootNode){const e=t.getRootNode();return e instanceof ShadowRoot?e:null}return t instanceof ShadowRoot?t:t.parentNode?m(t.parentNode):null},p=()=>{},_=t=>t.offsetHeight,b=()=>{const{jQuery:t}=window;return t&&!document.body.hasAttribute("data-bs-no-jquery")?t:null},v=[],y=()=>"rtl"===document.documentElement.dir,E=t=>{var e;e=()=>{const e=b();if(e){const i=t.NAME,s=e.fn[i];e.fn[i]=t.jQueryInterface,e.fn[i].Constructor=t,e.fn[i].noConflict=()=>(e.fn[i]=s,t.jQueryInterface)}},"loading"===document.readyState?(v.length||document.addEventListener("DOMContentLoaded",(()=>{v.forEach((t=>t()))})),v.push(e)):e()},w=t=>{"function"==typeof t&&t()},T=(t,e,i=!0)=>{if(!i)return void w(t);const s=(t=>{if(!t)return 0;let{transitionDuration:e,transitionDelay:i}=window.getComputedStyle(t);const s=Number.parseFloat(e),n=Number.parseFloat(i);return s||n?(e=e.split(",")[0],i=i.split(",")[0],1e3*(Number.parseFloat(e)+Number.parseFloat(i))):0})(e)+5;let o=!1;const r=({target:i})=>{i===e&&(o=!0,e.removeEventListener(n,r),w(t))};e.addEventListener(n,r),setTimeout((()=>{o||c(e)}),s)},A=(t,e,i,s)=>{let n=t.indexOf(e);if(-1===n)return t[!i&&s?t.length-1:0];const o=t.length;return n+=i?1:-1,s&&(n=(n+o)%o),t[Math.max(0,Math.min(n,o-1))]},C=/[^.]*(?=\..*)\.|.*/,L=/\..*/,k=/::\d+$/,O={};let D=1;const I={mouseenter:"mouseover",mouseleave:"mouseout"},N=/^(mouseenter|mouseleave)/i,S=new Set(["click","dblclick","mouseup","mousedown","contextmenu","mousewheel","DOMMouseScroll","mouseover","mouseout","mousemove","selectstart","selectend","keydown","keypress","keyup","orientationchange","touchstart","touchmove","touchend","touchcancel","pointerdown","pointermove","pointerup","pointerleave","pointercancel","gesturestart","gesturechange","gestureend","focus","blur","change","reset","select","submit","focusin","focusout","load","unload","beforeunload","resize","move","DOMContentLoaded","readystatechange","error","abort","scroll"]);function x(t,e){return e&&`${e}::${D++}`||t.uidEvent||D++}function M(t){const e=x(t);return t.uidEvent=e,O[e]=O[e]||{},O[e]}function P(t,e,i=null){const s=Object.keys(t);for(let n=0,o=s.length;n<o;n++){const o=t[s[n]];if(o.originalHandler===e&&o.delegationSelector===i)return o}return null}function j(t,e,i){const s="string"==typeof e,n=s?i:e;let o=R(t);return S.has(o)||(o=t),[s,n,o]}function H(t,e,i,s,n){if("string"!=typeof e||!t)return;if(i||(i=s,s=null),N.test(e)){const t=t=>function(e){if(!e.relatedTarget||e.relatedTarget!==e.delegateTarget&&!e.delegateTarget.contains(e.relatedTarget))return t.call(this,e)};s?s=t(s):i=t(i)}const[o,r,a]=j(e,i,s),l=M(t),c=l[a]||(l[a]={}),h=P(c,r,o?i:null);if(h)return void(h.oneOff=h.oneOff&&n);const d=x(r,e.replace(C,"")),u=o?function(t,e,i){return function s(n){const o=t.querySelectorAll(e);for(let{target:r}=n;r&&r!==this;r=r.parentNode)for(let a=o.length;a--;)if(o[a]===r)return n.delegateTarget=r,s.oneOff&&B.off(t,n.type,e,i),i.apply(r,[n]);return null}}(t,i,s):function(t,e){return function i(s){return s.delegateTarget=t,i.oneOff&&B.off(t,s.type,e),e.apply(t,[s])}}(t,i);u.delegationSelector=o?i:null,u.originalHandler=r,u.oneOff=n,u.uidEvent=d,c[d]=u,t.addEventListener(a,u,o)}function $(t,e,i,s,n){const o=P(e[i],s,n);o&&(t.removeEventListener(i,o,Boolean(n)),delete e[i][o.uidEvent])}function R(t){return t=t.replace(L,""),I[t]||t}const B={on(t,e,i,s){H(t,e,i,s,!1)},one(t,e,i,s){H(t,e,i,s,!0)},off(t,e,i,s){if("string"!=typeof e||!t)return;const[n,o,r]=j(e,i,s),a=r!==e,l=M(t),c=e.startsWith(".");if(void 0!==o){if(!l||!l[r])return;return void $(t,l,r,o,n?i:null)}c&&Object.keys(l).forEach((i=>{!function(t,e,i,s){const n=e[i]||{};Object.keys(n).forEach((o=>{if(o.includes(s)){const s=n[o];$(t,e,i,s.originalHandler,s.delegationSelector)}}))}(t,l,i,e.slice(1))}));const h=l[r]||{};Object.keys(h).forEach((i=>{const s=i.replace(k,"");if(!a||e.includes(s)){const e=h[i];$(t,l,r,e.originalHandler,e.delegationSelector)}}))},trigger(t,e,i){if("string"!=typeof e||!t)return null;const s=b(),n=R(e),o=e!==n,r=S.has(n);let a,l=!0,c=!0,h=!1,d=null;return o&&s&&(a=s.Event(e,i),s(t).trigger(a),l=!a.isPropagationStopped(),c=!a.isImmediatePropagationStopped(),h=a.isDefaultPrevented()),r?(d=document.createEvent("HTMLEvents"),d.initEvent(n,l,!0)):d=new CustomEvent(e,{bubbles:l,cancelable:!0}),void 0!==i&&Object.keys(i).forEach((t=>{Object.defineProperty(d,t,{get:()=>i[t]})})),h&&d.preventDefault(),c&&t.dispatchEvent(d),d.defaultPrevented&&void 0!==a&&a.preventDefault(),d}},W=new Map;var q={set(t,e,i){W.has(t)||W.set(t,new Map);const s=W.get(t);(s.has(e)||0===s.size)&&s.set(e,i)},get:(t,e)=>W.has(t)&&W.get(t).get(e)||null,remove(t,e){if(!W.has(t))return;const i=W.get(t);i.delete(e),0===i.size&&W.delete(t)}};class z{constructor(t){(t=d(t))&&(this._element=t,q.set(this._element,this.constructor.DATA_KEY,this))}dispose(){q.remove(this._element,this.constructor.DATA_KEY),B.off(this._element,this.constructor.EVENT_KEY),Object.getOwnPropertyNames(this).forEach((t=>{this[t]=null}))}_queueCallback(t,e,i=!0){T(t,e,i)}static getInstance(t){return q.get(t,this.DATA_KEY)}static getOrCreateInstance(t,e={}){return this.getInstance(t)||new this(t,"object"==typeof e?e:null)}static get VERSION(){return"5.0.2"}static get NAME(){throw new Error('You have to implement the static method "NAME", for each component!')}static get DATA_KEY(){return`bs.${this.NAME}`}static get EVENT_KEY(){return`.${this.DATA_KEY}`}}class F extends z{static get NAME(){return"alert"}close(t){const e=t?this._getRootElement(t):this._element,i=this._triggerCloseEvent(e);null===i||i.defaultPrevented||this._removeElement(e)}_getRootElement(t){return l(t)||t.closest(".alert")}_triggerCloseEvent(t){return B.trigger(t,"close.bs.alert")}_removeElement(t){t.classList.remove("show");const e=t.classList.contains("fade");this._queueCallback((()=>this._destroyElement(t)),t,e)}_destroyElement(t){t.remove(),B.trigger(t,"closed.bs.alert")}static jQueryInterface(t){return this.each((function(){const e=F.getOrCreateInstance(this);"close"===t&&e[t](this)}))}static handleDismiss(t){return function(e){e&&e.preventDefault(),t.close(this)}}}B.on(document,"click.bs.alert.data-api",'[data-bs-dismiss="alert"]',F.handleDismiss(new F)),E(F);const U='[data-bs-toggle="button"]';class K extends z{static get NAME(){return"button"}toggle(){this._element.setAttribute("aria-pressed",this._element.classList.toggle("active"))}static jQueryInterface(t){return this.each((function(){const e=K.getOrCreateInstance(this);"toggle"===t&&e[t]()}))}}function V(t){return"true"===t||"false"!==t&&(t===Number(t).toString()?Number(t):""===t||"null"===t?null:t)}function Q(t){return t.replace(/[A-Z]/g,(t=>`-${t.toLowerCase()}`))}B.on(document,"click.bs.button.data-api",U,(t=>{t.preventDefault();const e=t.target.closest(U);K.getOrCreateInstance(e).toggle()})),E(K);const X={setDataAttribute(t,e,i){t.setAttribute(`data-bs-${Q(e)}`,i)},removeDataAttribute(t,e){t.removeAttribute(`data-bs-${Q(e)}`)},getDataAttributes(t){if(!t)return{};const e={};return Object.keys(t.dataset).filter((t=>t.startsWith("bs"))).forEach((i=>{let s=i.replace(/^bs/,"");s=s.charAt(0).toLowerCase()+s.slice(1,s.length),e[s]=V(t.dataset[i])})),e},getDataAttribute:(t,e)=>V(t.getAttribute(`data-bs-${Q(e)}`)),offset(t){const e=t.getBoundingClientRect();return{top:e.top+document.body.scrollTop,left:e.left+document.body.scrollLeft}},position:t=>({top:t.offsetTop,left:t.offsetLeft})},Y="carousel",G={interval:5e3,keyboard:!0,slide:!1,pause:"hover",wrap:!0,touch:!0},Z={interval:"(number|boolean)",keyboard:"boolean",slide:"(boolean|string)",pause:"(string|boolean)",wrap:"boolean",touch:"boolean"},J="next",tt="prev",et="left",it="right",st={ArrowLeft:it,ArrowRight:et},nt="slid.bs.carousel",ot="active",rt=".active.carousel-item",at="touch";class lt extends z{constructor(t,e){super(t),this._items=null,this._interval=null,this._activeElement=null,this._isPaused=!1,this._isSliding=!1,this.touchTimeout=null,this.touchStartX=0,this.touchDeltaX=0,this._config=this._getConfig(e),this._indicatorsElement=s.findOne(".carousel-indicators",this._element),this._touchSupported="ontouchstart"in document.documentElement||navigator.maxTouchPoints>0,this._pointerEvent=Boolean(window.PointerEvent),this._addEventListeners()}static get Default(){return G}static get NAME(){return Y}next(){this._slide(J)}nextWhenVisible(){!document.hidden&&g(this._element)&&this.next()}prev(){this._slide(tt)}pause(t){t||(this._isPaused=!0),s.findOne(".carousel-item-next, .carousel-item-prev",this._element)&&(c(this._element),this.cycle(!0)),clearInterval(this._interval),this._interval=null}cycle(t){t||(this._isPaused=!1),this._interval&&(clearInterval(this._interval),this._interval=null),this._config&&this._config.interval&&!this._isPaused&&(this._updateInterval(),this._interval=setInterval((document.visibilityState?this.nextWhenVisible:this.next).bind(this),this._config.interval))}to(t){this._activeElement=s.findOne(rt,this._element);const e=this._getItemIndex(this._activeElement);if(t>this._items.length-1||t<0)return;if(this._isSliding)return void B.one(this._element,nt,(()=>this.to(t)));if(e===t)return this.pause(),void this.cycle();const i=t>e?J:tt;this._slide(i,this._items[t])}_getConfig(t){return t={...G,...X.getDataAttributes(this._element),..."object"==typeof t?t:{}},u(Y,t,Z),t}_handleSwipe(){const t=Math.abs(this.touchDeltaX);if(t<=40)return;const e=t/this.touchDeltaX;this.touchDeltaX=0,e&&this._slide(e>0?it:et)}_addEventListeners(){this._config.keyboard&&B.on(this._element,"keydown.bs.carousel",(t=>this._keydown(t))),"hover"===this._config.pause&&(B.on(this._element,"mouseenter.bs.carousel",(t=>this.pause(t))),B.on(this._element,"mouseleave.bs.carousel",(t=>this.cycle(t)))),this._config.touch&&this._touchSupported&&this._addTouchEventListeners()}_addTouchEventListeners(){const t=t=>{!this._pointerEvent||"pen"!==t.pointerType&&t.pointerType!==at?this._pointerEvent||(this.touchStartX=t.touches[0].clientX):this.touchStartX=t.clientX},e=t=>{this.touchDeltaX=t.touches&&t.touches.length>1?0:t.touches[0].clientX-this.touchStartX},i=t=>{!this._pointerEvent||"pen"!==t.pointerType&&t.pointerType!==at||(this.touchDeltaX=t.clientX-this.touchStartX),this._handleSwipe(),"hover"===this._config.pause&&(this.pause(),this.touchTimeout&&clearTimeout(this.touchTimeout),this.touchTimeout=setTimeout((t=>this.cycle(t)),500+this._config.interval))};s.find(".carousel-item img",this._element).forEach((t=>{B.on(t,"dragstart.bs.carousel",(t=>t.preventDefault()))})),this._pointerEvent?(B.on(this._element,"pointerdown.bs.carousel",(e=>t(e))),B.on(this._element,"pointerup.bs.carousel",(t=>i(t))),this._element.classList.add("pointer-event")):(B.on(this._element,"touchstart.bs.carousel",(e=>t(e))),B.on(this._element,"touchmove.bs.carousel",(t=>e(t))),B.on(this._element,"touchend.bs.carousel",(t=>i(t))))}_keydown(t){if(/input|textarea/i.test(t.target.tagName))return;const e=st[t.key];e&&(t.preventDefault(),this._slide(e))}_getItemIndex(t){return this._items=t&&t.parentNode?s.find(".carousel-item",t.parentNode):[],this._items.indexOf(t)}_getItemByOrder(t,e){const i=t===J;return A(this._items,e,i,this._config.wrap)}_triggerSlideEvent(t,e){const i=this._getItemIndex(t),n=this._getItemIndex(s.findOne(rt,this._element));return B.trigger(this._element,"slide.bs.carousel",{relatedTarget:t,direction:e,from:n,to:i})}_setActiveIndicatorElement(t){if(this._indicatorsElement){const e=s.findOne(".active",this._indicatorsElement);e.classList.remove(ot),e.removeAttribute("aria-current");const i=s.find("[data-bs-target]",this._indicatorsElement);for(let e=0;e<i.length;e++)if(Number.parseInt(i[e].getAttribute("data-bs-slide-to"),10)===this._getItemIndex(t)){i[e].classList.add(ot),i[e].setAttribute("aria-current","true");break}}}_updateInterval(){const t=this._activeElement||s.findOne(rt,this._element);if(!t)return;const e=Number.parseInt(t.getAttribute("data-bs-interval"),10);e?(this._config.defaultInterval=this._config.defaultInterval||this._config.interval,this._config.interval=e):this._config.interval=this._config.defaultInterval||this._config.interval}_slide(t,e){const i=this._directionToOrder(t),n=s.findOne(rt,this._element),o=this._getItemIndex(n),r=e||this._getItemByOrder(i,n),a=this._getItemIndex(r),l=Boolean(this._interval),c=i===J,h=c?"carousel-item-start":"carousel-item-end",d=c?"carousel-item-next":"carousel-item-prev",u=this._orderToDirection(i);if(r&&r.classList.contains(ot))return void(this._isSliding=!1);if(this._isSliding)return;if(this._triggerSlideEvent(r,u).defaultPrevented)return;if(!n||!r)return;this._isSliding=!0,l&&this.pause(),this._setActiveIndicatorElement(r),this._activeElement=r;const g=()=>{B.trigger(this._element,nt,{relatedTarget:r,direction:u,from:o,to:a})};if(this._element.classList.contains("slide")){r.classList.add(d),_(r),n.classList.add(h),r.classList.add(h);const t=()=>{r.classList.remove(h,d),r.classList.add(ot),n.classList.remove(ot,d,h),this._isSliding=!1,setTimeout(g,0)};this._queueCallback(t,n,!0)}else n.classList.remove(ot),r.classList.add(ot),this._isSliding=!1,g();l&&this.cycle()}_directionToOrder(t){return[it,et].includes(t)?y()?t===et?tt:J:t===et?J:tt:t}_orderToDirection(t){return[J,tt].includes(t)?y()?t===tt?et:it:t===tt?it:et:t}static carouselInterface(t,e){const i=lt.getOrCreateInstance(t,e);let{_config:s}=i;"object"==typeof e&&(s={...s,...e});const n="string"==typeof e?e:s.slide;if("number"==typeof e)i.to(e);else if("string"==typeof n){if(void 0===i[n])throw new TypeError(`No method named "${n}"`);i[n]()}else s.interval&&s.ride&&(i.pause(),i.cycle())}static jQueryInterface(t){return this.each((function(){lt.carouselInterface(this,t)}))}static dataApiClickHandler(t){const e=l(this);if(!e||!e.classList.contains("carousel"))return;const i={...X.getDataAttributes(e),...X.getDataAttributes(this)},s=this.getAttribute("data-bs-slide-to");s&&(i.interval=!1),lt.carouselInterface(e,i),s&&lt.getInstance(e).to(s),t.preventDefault()}}B.on(document,"click.bs.carousel.data-api","[data-bs-slide], [data-bs-slide-to]",lt.dataApiClickHandler),B.on(window,"load.bs.carousel.data-api",(()=>{const t=s.find('[data-bs-ride="carousel"]');for(let e=0,i=t.length;e<i;e++)lt.carouselInterface(t[e],lt.getInstance(t[e]))})),E(lt);const ct="collapse",ht="bs.collapse",dt={toggle:!0,parent:""},ut={toggle:"boolean",parent:"(string|element)"},gt="show",ft="collapse",mt="collapsing",pt="collapsed",_t="width",bt='[data-bs-toggle="collapse"]';class vt extends z{constructor(t,e){super(t),this._isTransitioning=!1,this._config=this._getConfig(e),this._triggerArray=s.find(`${bt}[href="#${this._element.id}"],${bt}[data-bs-target="#${this._element.id}"]`);const i=s.find(bt);for(let t=0,e=i.length;t<e;t++){const e=i[t],n=a(e),o=s.find(n).filter((t=>t===this._element));null!==n&&o.length&&(this._selector=n,this._triggerArray.push(e))}this._parent=this._config.parent?this._getParent():null,this._config.parent||this._addAriaAndCollapsedClass(this._element,this._triggerArray),this._config.toggle&&this.toggle()}static get Default(){return dt}static get NAME(){return ct}toggle(){this._element.classList.contains(gt)?this.hide():this.show()}show(){if(this._isTransitioning||this._element.classList.contains(gt))return;let t,e;this._parent&&(t=s.find(".show, .collapsing",this._parent).filter((t=>"string"==typeof this._config.parent?t.getAttribute("data-bs-parent")===this._config.parent:t.classList.contains(ft))),0===t.length&&(t=null));const i=s.findOne(this._selector);if(t){const s=t.find((t=>i!==t));if(e=s?vt.getInstance(s):null,e&&e._isTransitioning)return}if(B.trigger(this._element,"show.bs.collapse").defaultPrevented)return;t&&t.forEach((t=>{i!==t&&vt.collapseInterface(t,"hide"),e||q.set(t,ht,null)}));const n=this._getDimension();this._element.classList.remove(ft),this._element.classList.add(mt),this._element.style[n]=0,this._triggerArray.length&&this._triggerArray.forEach((t=>{t.classList.remove(pt),t.setAttribute("aria-expanded",!0)})),this.setTransitioning(!0);const o=`scroll${n[0].toUpperCase()+n.slice(1)}`;this._queueCallback((()=>{this._element.classList.remove(mt),this._element.classList.add(ft,gt),this._element.style[n]="",this.setTransitioning(!1),B.trigger(this._element,"shown.bs.collapse")}),this._element,!0),this._element.style[n]=`${this._element[o]}px`}hide(){if(this._isTransitioning||!this._element.classList.contains(gt))return;if(B.trigger(this._element,"hide.bs.collapse").defaultPrevented)return;const t=this._getDimension();this._element.style[t]=`${this._element.getBoundingClientRect()[t]}px`,_(this._element),this._element.classList.add(mt),this._element.classList.remove(ft,gt);const e=this._triggerArray.length;if(e>0)for(let t=0;t<e;t++){const e=this._triggerArray[t],i=l(e);i&&!i.classList.contains(gt)&&(e.classList.add(pt),e.setAttribute("aria-expanded",!1))}this.setTransitioning(!0);this._element.style[t]="",this._queueCallback((()=>{this.setTransitioning(!1),this._element.classList.remove(mt),this._element.classList.add(ft),B.trigger(this._element,"hidden.bs.collapse")}),this._element,!0)}setTransitioning(t){this._isTransitioning=t}_getConfig(t){return(t={...dt,...t}).toggle=Boolean(t.toggle),u(ct,t,ut),t}_getDimension(){return this._element.classList.contains(_t)?_t:"height"}_getParent(){let{parent:t}=this._config;t=d(t);const e=`${bt}[data-bs-parent="${t}"]`;return s.find(e,t).forEach((t=>{const e=l(t);this._addAriaAndCollapsedClass(e,[t])})),t}_addAriaAndCollapsedClass(t,e){if(!t||!e.length)return;const i=t.classList.contains(gt);e.forEach((t=>{i?t.classList.remove(pt):t.classList.add(pt),t.setAttribute("aria-expanded",i)}))}static collapseInterface(t,e){let i=vt.getInstance(t);const s={...dt,...X.getDataAttributes(t),..."object"==typeof e&&e?e:{}};if(!i&&s.toggle&&"string"==typeof e&&/show|hide/.test(e)&&(s.toggle=!1),i||(i=new vt(t,s)),"string"==typeof e){if(void 0===i[e])throw new TypeError(`No method named "${e}"`);i[e]()}}static jQueryInterface(t){return this.each((function(){vt.collapseInterface(this,t)}))}}B.on(document,"click.bs.collapse.data-api",bt,(function(t){("A"===t.target.tagName||t.delegateTarget&&"A"===t.delegateTarget.tagName)&&t.preventDefault();const e=X.getDataAttributes(this),i=a(this);s.find(i).forEach((t=>{const i=vt.getInstance(t);let s;i?(null===i._parent&&"string"==typeof e.parent&&(i._config.parent=e.parent,i._parent=i._getParent()),s="toggle"):s=e,vt.collapseInterface(t,s)}))})),E(vt);const yt="dropdown",Et="Escape",wt="Space",Tt="ArrowUp",At="ArrowDown",Ct=new RegExp("ArrowUp|ArrowDown|Escape"),Lt="click.bs.dropdown.data-api",kt="keydown.bs.dropdown.data-api",Ot="show",Dt='[data-bs-toggle="dropdown"]',It=".dropdown-menu",Nt=y()?"top-end":"top-start",St=y()?"top-start":"top-end",xt=y()?"bottom-end":"bottom-start",Mt=y()?"bottom-start":"bottom-end",Pt=y()?"left-start":"right-start",jt=y()?"right-start":"left-start",Ht={offset:[0,2],boundary:"clippingParents",reference:"toggle",display:"dynamic",popperConfig:null,autoClose:!0},$t={offset:"(array|string|function)",boundary:"(string|element)",reference:"(string|element|object)",display:"string",popperConfig:"(null|object|function)",autoClose:"(boolean|string)"};class Rt extends z{constructor(t,e){super(t),this._popper=null,this._config=this._getConfig(e),this._menu=this._getMenuElement(),this._inNavbar=this._detectNavbar(),this._addEventListeners()}static get Default(){return Ht}static get DefaultType(){return $t}static get NAME(){return yt}toggle(){if(f(this._element))return;this._element.classList.contains(Ot)?this.hide():this.show()}show(){if(f(this._element)||this._menu.classList.contains(Ot))return;const t=Rt.getParentFromElement(this._element),e={relatedTarget:this._element};if(!B.trigger(this._element,"show.bs.dropdown",e).defaultPrevented){if(this._inNavbar)X.setDataAttribute(this._menu,"popper","none");else{if(void 0===i)throw new TypeError("Bootstrap's dropdowns require Popper (https://popper.js.org)");let e=this._element;"parent"===this._config.reference?e=t:h(this._config.reference)?e=d(this._config.reference):"object"==typeof this._config.reference&&(e=this._config.reference);const s=this._getPopperConfig(),n=s.modifiers.find((t=>"applyStyles"===t.name&&!1===t.enabled));this._popper=i.createPopper(e,this._menu,s),n&&X.setDataAttribute(this._menu,"popper","static")}"ontouchstart"in document.documentElement&&!t.closest(".navbar-nav")&&[].concat(...document.body.children).forEach((t=>B.on(t,"mouseover",p))),this._element.focus(),this._element.setAttribute("aria-expanded",!0),this._menu.classList.toggle(Ot),this._element.classList.toggle(Ot),B.trigger(this._element,"shown.bs.dropdown",e)}}hide(){if(f(this._element)||!this._menu.classList.contains(Ot))return;const t={relatedTarget:this._element};this._completeHide(t)}dispose(){this._popper&&this._popper.destroy(),super.dispose()}update(){this._inNavbar=this._detectNavbar(),this._popper&&this._popper.update()}_addEventListeners(){B.on(this._element,"click.bs.dropdown",(t=>{t.preventDefault(),this.toggle()}))}_completeHide(t){B.trigger(this._element,"hide.bs.dropdown",t).defaultPrevented||("ontouchstart"in document.documentElement&&[].concat(...document.body.children).forEach((t=>B.off(t,"mouseover",p))),this._popper&&this._popper.destroy(),this._menu.classList.remove(Ot),this._element.classList.remove(Ot),this._element.setAttribute("aria-expanded","false"),X.removeDataAttribute(this._menu,"popper"),B.trigger(this._element,"hidden.bs.dropdown",t))}_getConfig(t){if(t={...this.constructor.Default,...X.getDataAttributes(this._element),...t},u(yt,t,this.constructor.DefaultType),"object"==typeof t.reference&&!h(t.reference)&&"function"!=typeof t.reference.getBoundingClientRect)throw new TypeError(`${yt.toUpperCase()}: Option "reference" provided type "object" without a required "getBoundingClientRect" method.`);return t}_getMenuElement(){return s.next(this._element,It)[0]}_getPlacement(){const t=this._element.parentNode;if(t.classList.contains("dropend"))return Pt;if(t.classList.contains("dropstart"))return jt;const e="end"===getComputedStyle(this._menu).getPropertyValue("--bs-position").trim();return t.classList.contains("dropup")?e?St:Nt:e?Mt:xt}_detectNavbar(){return null!==this._element.closest(".navbar")}_getOffset(){const{offset:t}=this._config;return"string"==typeof t?t.split(",").map((t=>Number.parseInt(t,10))):"function"==typeof t?e=>t(e,this._element):t}_getPopperConfig(){const t={placement:this._getPlacement(),modifiers:[{name:"preventOverflow",options:{boundary:this._config.boundary}},{name:"offset",options:{offset:this._getOffset()}}]};return"static"===this._config.display&&(t.modifiers=[{name:"applyStyles",enabled:!1}]),{...t,..."function"==typeof this._config.popperConfig?this._config.popperConfig(t):this._config.popperConfig}}_selectMenuItem({key:t,target:e}){const i=s.find(".dropdown-menu .dropdown-item:not(.disabled):not(:disabled)",this._menu).filter(g);i.length&&A(i,e,t===At,!i.includes(e)).focus()}static dropdownInterface(t,e){const i=Rt.getOrCreateInstance(t,e);if("string"==typeof e){if(void 0===i[e])throw new TypeError(`No method named "${e}"`);i[e]()}}static jQueryInterface(t){return this.each((function(){Rt.dropdownInterface(this,t)}))}static clearMenus(t){if(t&&(2===t.button||"keyup"===t.type&&"Tab"!==t.key))return;const e=s.find(Dt);for(let i=0,s=e.length;i<s;i++){const s=Rt.getInstance(e[i]);if(!s||!1===s._config.autoClose)continue;if(!s._element.classList.contains(Ot))continue;const n={relatedTarget:s._element};if(t){const e=t.composedPath(),i=e.includes(s._menu);if(e.includes(s._element)||"inside"===s._config.autoClose&&!i||"outside"===s._config.autoClose&&i)continue;if(s._menu.contains(t.target)&&("keyup"===t.type&&"Tab"===t.key||/input|select|option|textarea|form/i.test(t.target.tagName)))continue;"click"===t.type&&(n.clickEvent=t)}s._completeHide(n)}}static getParentFromElement(t){return l(t)||t.parentNode}static dataApiKeydownHandler(t){if(/input|textarea/i.test(t.target.tagName)?t.key===wt||t.key!==Et&&(t.key!==At&&t.key!==Tt||t.target.closest(It)):!Ct.test(t.key))return;const e=this.classList.contains(Ot);if(!e&&t.key===Et)return;if(t.preventDefault(),t.stopPropagation(),f(this))return;const i=()=>this.matches(Dt)?this:s.prev(this,Dt)[0];return t.key===Et?(i().focus(),void Rt.clearMenus()):t.key===Tt||t.key===At?(e||i().click(),void Rt.getInstance(i())._selectMenuItem(t)):void(e&&t.key!==wt||Rt.clearMenus())}}B.on(document,kt,Dt,Rt.dataApiKeydownHandler),B.on(document,kt,It,Rt.dataApiKeydownHandler),B.on(document,Lt,Rt.clearMenus),B.on(document,"keyup.bs.dropdown.data-api",Rt.clearMenus),B.on(document,Lt,Dt,(function(t){t.preventDefault(),Rt.dropdownInterface(this)})),E(Rt);const Bt=".fixed-top, .fixed-bottom, .is-fixed, .sticky-top",Wt=".sticky-top";class qt{constructor(){this._element=document.body}getWidth(){const t=document.documentElement.clientWidth;return Math.abs(window.innerWidth-t)}hide(){const t=this.getWidth();this._disableOverFlow(),this._setElementAttributes(this._element,"paddingRight",(e=>e+t)),this._setElementAttributes(Bt,"paddingRight",(e=>e+t)),this._setElementAttributes(Wt,"marginRight",(e=>e-t))}_disableOverFlow(){this._saveInitialAttribute(this._element,"overflow"),this._element.style.overflow="hidden"}_setElementAttributes(t,e,i){const s=this.getWidth();this._applyManipulationCallback(t,(t=>{if(t!==this._element&&window.innerWidth>t.clientWidth+s)return;this._saveInitialAttribute(t,e);const n=window.getComputedStyle(t)[e];t.style[e]=`${i(Number.parseFloat(n))}px`}))}reset(){this._resetElementAttributes(this._element,"overflow"),this._resetElementAttributes(this._element,"paddingRight"),this._resetElementAttributes(Bt,"paddingRight"),this._resetElementAttributes(Wt,"marginRight")}_saveInitialAttribute(t,e){const i=t.style[e];i&&X.setDataAttribute(t,e,i)}_resetElementAttributes(t,e){this._applyManipulationCallback(t,(t=>{const i=X.getDataAttribute(t,e);void 0===i?t.style.removeProperty(e):(X.removeDataAttribute(t,e),t.style[e]=i)}))}_applyManipulationCallback(t,e){h(t)?e(t):s.find(t,this._element).forEach(e)}isOverflowing(){return this.getWidth()>0}}const zt={isVisible:!0,isAnimated:!1,rootElement:"body",clickCallback:null},Ft={isVisible:"boolean",isAnimated:"boolean",rootElement:"(element|string)",clickCallback:"(function|null)"},Ut="backdrop",Kt="show",Vt="mousedown.bs.backdrop";class Qt{constructor(t){this._config=this._getConfig(t),this._isAppended=!1,this._element=null}show(t){this._config.isVisible?(this._append(),this._config.isAnimated&&_(this._getElement()),this._getElement().classList.add(Kt),this._emulateAnimation((()=>{w(t)}))):w(t)}hide(t){this._config.isVisible?(this._getElement().classList.remove(Kt),this._emulateAnimation((()=>{this.dispose(),w(t)}))):w(t)}_getElement(){if(!this._element){const t=document.createElement("div");t.className="modal-backdrop",this._config.isAnimated&&t.classList.add("fade"),this._element=t}return this._element}_getConfig(t){return(t={...zt,..."object"==typeof t?t:{}}).rootElement=d(t.rootElement),u(Ut,t,Ft),t}_append(){this._isAppended||(this._config.rootElement.appendChild(this._getElement()),B.on(this._getElement(),Vt,(()=>{w(this._config.clickCallback)})),this._isAppended=!0)}dispose(){this._isAppended&&(B.off(this._element,Vt),this._element.remove(),this._isAppended=!1)}_emulateAnimation(t){T(t,this._getElement(),this._config.isAnimated)}}const Xt="modal",Yt=".bs.modal",Gt="Escape",Zt={backdrop:!0,keyboard:!0,focus:!0},Jt={backdrop:"(boolean|string)",keyboard:"boolean",focus:"boolean"},te="hidden.bs.modal",ee="show.bs.modal",ie="focusin.bs.modal",se="resize.bs.modal",ne="click.dismiss.bs.modal",oe="keydown.dismiss.bs.modal",re="mousedown.dismiss.bs.modal",ae="modal-open",le="show",ce="modal-static";class he extends z{constructor(t,e){super(t),this._config=this._getConfig(e),this._dialog=s.findOne(".modal-dialog",this._element),this._backdrop=this._initializeBackDrop(),this._isShown=!1,this._ignoreBackdropClick=!1,this._isTransitioning=!1,this._scrollBar=new qt}static get Default(){return Zt}static get NAME(){return Xt}toggle(t){return this._isShown?this.hide():this.show(t)}show(t){if(this._isShown||this._isTransitioning)return;B.trigger(this._element,ee,{relatedTarget:t}).defaultPrevented||(this._isShown=!0,this._isAnimated()&&(this._isTransitioning=!0),this._scrollBar.hide(),document.body.classList.add(ae),this._adjustDialog(),this._setEscapeEvent(),this._setResizeEvent(),B.on(this._element,ne,'[data-bs-dismiss="modal"]',(t=>this.hide(t))),B.on(this._dialog,re,(()=>{B.one(this._element,"mouseup.dismiss.bs.modal",(t=>{t.target===this._element&&(this._ignoreBackdropClick=!0)}))})),this._showBackdrop((()=>this._showElement(t))))}hide(t){if(t&&["A","AREA"].includes(t.target.tagName)&&t.preventDefault(),!this._isShown||this._isTransitioning)return;if(B.trigger(this._element,"hide.bs.modal").defaultPrevented)return;this._isShown=!1;const e=this._isAnimated();e&&(this._isTransitioning=!0),this._setEscapeEvent(),this._setResizeEvent(),B.off(document,ie),this._element.classList.remove(le),B.off(this._element,ne),B.off(this._dialog,re),this._queueCallback((()=>this._hideModal()),this._element,e)}dispose(){[window,this._dialog].forEach((t=>B.off(t,Yt))),this._backdrop.dispose(),super.dispose(),B.off(document,ie)}handleUpdate(){this._adjustDialog()}_initializeBackDrop(){return new Qt({isVisible:Boolean(this._config.backdrop),isAnimated:this._isAnimated()})}_getConfig(t){return t={...Zt,...X.getDataAttributes(this._element),..."object"==typeof t?t:{}},u(Xt,t,Jt),t}_showElement(t){const e=this._isAnimated(),i=s.findOne(".modal-body",this._dialog);this._element.parentNode&&this._element.parentNode.nodeType===Node.ELEMENT_NODE||document.body.appendChild(this._element),this._element.style.display="block",this._element.removeAttribute("aria-hidden"),this._element.setAttribute("aria-modal",!0),this._element.setAttribute("role","dialog"),this._element.scrollTop=0,i&&(i.scrollTop=0),e&&_(this._element),this._element.classList.add(le),this._config.focus&&this._enforceFocus();this._queueCallback((()=>{this._config.focus&&this._element.focus(),this._isTransitioning=!1,B.trigger(this._element,"shown.bs.modal",{relatedTarget:t})}),this._dialog,e)}_enforceFocus(){B.off(document,ie),B.on(document,ie,(t=>{document===t.target||this._element===t.target||this._element.contains(t.target)||this._element.focus()}))}_setEscapeEvent(){this._isShown?B.on(this._element,oe,(t=>{this._config.keyboard&&t.key===Gt?(t.preventDefault(),this.hide()):this._config.keyboard||t.key!==Gt||this._triggerBackdropTransition()})):B.off(this._element,oe)}_setResizeEvent(){this._isShown?B.on(window,se,(()=>this._adjustDialog())):B.off(window,se)}_hideModal(){this._element.style.display="none",this._element.setAttribute("aria-hidden",!0),this._element.removeAttribute("aria-modal"),this._element.removeAttribute("role"),this._isTransitioning=!1,this._backdrop.hide((()=>{document.body.classList.remove(ae),this._resetAdjustments(),this._scrollBar.reset(),B.trigger(this._element,te)}))}_showBackdrop(t){B.on(this._element,ne,(t=>{this._ignoreBackdropClick?this._ignoreBackdropClick=!1:t.target===t.currentTarget&&(!0===this._config.backdrop?this.hide():"static"===this._config.backdrop&&this._triggerBackdropTransition())})),this._backdrop.show(t)}_isAnimated(){return this._element.classList.contains("fade")}_triggerBackdropTransition(){if(B.trigger(this._element,"hidePrevented.bs.modal").defaultPrevented)return;const{classList:t,scrollHeight:e,style:i}=this._element,s=e>document.documentElement.clientHeight;!s&&"hidden"===i.overflowY||t.contains(ce)||(s||(i.overflowY="hidden"),t.add(ce),this._queueCallback((()=>{t.remove(ce),s||this._queueCallback((()=>{i.overflowY=""}),this._dialog)}),this._dialog),this._element.focus())}_adjustDialog(){const t=this._element.scrollHeight>document.documentElement.clientHeight,e=this._scrollBar.getWidth(),i=e>0;(!i&&t&&!y()||i&&!t&&y())&&(this._element.style.paddingLeft=`${e}px`),(i&&!t&&!y()||!i&&t&&y())&&(this._element.style.paddingRight=`${e}px`)}_resetAdjustments(){this._element.style.paddingLeft="",this._element.style.paddingRight=""}static jQueryInterface(t,e){return this.each((function(){const i=he.getOrCreateInstance(this,t);if("string"==typeof t){if(void 0===i[t])throw new TypeError(`No method named "${t}"`);i[t](e)}}))}}B.on(document,"click.bs.modal.data-api",'[data-bs-toggle="modal"]',(function(t){const e=l(this);["A","AREA"].includes(this.tagName)&&t.preventDefault(),B.one(e,ee,(t=>{t.defaultPrevented||B.one(e,te,(()=>{g(this)&&this.focus()}))}));he.getOrCreateInstance(e).toggle(this)})),E(he);const de="offcanvas",ue={backdrop:!0,keyboard:!0,scroll:!1},ge={backdrop:"boolean",keyboard:"boolean",scroll:"boolean"},fe="show",me=".offcanvas.show",pe="hidden.bs.offcanvas",_e="focusin.bs.offcanvas";class be extends z{constructor(t,e){super(t),this._config=this._getConfig(e),this._isShown=!1,this._backdrop=this._initializeBackDrop(),this._addEventListeners()}static get NAME(){return de}static get Default(){return ue}toggle(t){return this._isShown?this.hide():this.show(t)}show(t){if(this._isShown)return;if(B.trigger(this._element,"show.bs.offcanvas",{relatedTarget:t}).defaultPrevented)return;this._isShown=!0,this._element.style.visibility="visible",this._backdrop.show(),this._config.scroll||((new qt).hide(),this._enforceFocusOnElement(this._element)),this._element.removeAttribute("aria-hidden"),this._element.setAttribute("aria-modal",!0),this._element.setAttribute("role","dialog"),this._element.classList.add(fe);this._queueCallback((()=>{B.trigger(this._element,"shown.bs.offcanvas",{relatedTarget:t})}),this._element,!0)}hide(){if(!this._isShown)return;if(B.trigger(this._element,"hide.bs.offcanvas").defaultPrevented)return;B.off(document,_e),this._element.blur(),this._isShown=!1,this._element.classList.remove(fe),this._backdrop.hide();this._queueCallback((()=>{this._element.setAttribute("aria-hidden",!0),this._element.removeAttribute("aria-modal"),this._element.removeAttribute("role"),this._element.style.visibility="hidden",this._config.scroll||(new qt).reset(),B.trigger(this._element,pe)}),this._element,!0)}dispose(){this._backdrop.dispose(),super.dispose(),B.off(document,_e)}_getConfig(t){return t={...ue,...X.getDataAttributes(this._element),..."object"==typeof t?t:{}},u(de,t,ge),t}_initializeBackDrop(){return new Qt({isVisible:this._config.backdrop,isAnimated:!0,rootElement:this._element.parentNode,clickCallback:()=>this.hide()})}_enforceFocusOnElement(t){B.off(document,_e),B.on(document,_e,(e=>{document===e.target||t===e.target||t.contains(e.target)||t.focus()})),t.focus()}_addEventListeners(){B.on(this._element,"click.dismiss.bs.offcanvas",'[data-bs-dismiss="offcanvas"]',(()=>this.hide())),B.on(this._element,"keydown.dismiss.bs.offcanvas",(t=>{this._config.keyboard&&"Escape"===t.key&&this.hide()}))}static jQueryInterface(t){return this.each((function(){const e=be.getOrCreateInstance(this,t);if("string"==typeof t){if(void 0===e[t]||t.startsWith("_")||"constructor"===t)throw new TypeError(`No method named "${t}"`);e[t](this)}}))}}B.on(document,"click.bs.offcanvas.data-api",'[data-bs-toggle="offcanvas"]',(function(t){const e=l(this);if(["A","AREA"].includes(this.tagName)&&t.preventDefault(),f(this))return;B.one(e,pe,(()=>{g(this)&&this.focus()}));const i=s.findOne(me);i&&i!==e&&be.getInstance(i).hide();be.getOrCreateInstance(e).toggle(this)})),B.on(window,"load.bs.offcanvas.data-api",(()=>s.find(me).forEach((t=>be.getOrCreateInstance(t).show())))),E(be);const ve=new Set(["background","cite","href","itemtype","longdesc","poster","src","xlink:href"]),ye=/^(?:(?:https?|mailto|ftp|tel|file):|[^#&/:?]*(?:[#/?]|$))/i,Ee=/^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[\d+/a-z]+=*$/i,we=(t,e)=>{const i=t.nodeName.toLowerCase();if(e.includes(i))return!ve.has(i)||Boolean(ye.test(t.nodeValue)||Ee.test(t.nodeValue));const s=e.filter((t=>t instanceof RegExp));for(let t=0,e=s.length;t<e;t++)if(s[t].test(i))return!0;return!1},Te={"*":["class","dir","id","lang","role",/^aria-[\w-]*$/i],a:["target","href","title","rel"],area:[],b:[],br:[],col:[],code:[],div:[],em:[],hr:[],h1:[],h2:[],h3:[],h4:[],h5:[],h6:[],i:[],img:["src","srcset","alt","title","width","height"],li:[],ol:[],p:[],pre:[],s:[],small:[],span:[],sub:[],sup:[],strong:[],u:[],ul:[]};function Ae(t,e,i){if(!t.length)return t;if(i&&"function"==typeof i)return i(t);const s=(new window.DOMParser).parseFromString(t,"text/html"),n=Object.keys(e),o=[].concat(...s.body.querySelectorAll("*"));for(let t=0,i=o.length;t<i;t++){const i=o[t],s=i.nodeName.toLowerCase();if(!n.includes(s)){i.remove();continue}const r=[].concat(...i.attributes),a=[].concat(e["*"]||[],e[s]||[]);r.forEach((t=>{we(t,a)||i.removeAttribute(t.nodeName)}))}return s.body.innerHTML}const Ce="tooltip",Le=new RegExp("(^|\\s)bs-tooltip\\S+","g"),ke=new Set(["sanitize","allowList","sanitizeFn"]),Oe={animation:"boolean",template:"string",title:"(string|element|function)",trigger:"string",delay:"(number|object)",html:"boolean",selector:"(string|boolean)",placement:"(string|function)",offset:"(array|string|function)",container:"(string|element|boolean)",fallbackPlacements:"array",boundary:"(string|element)",customClass:"(string|function)",sanitize:"boolean",sanitizeFn:"(null|function)",allowList:"object",popperConfig:"(null|object|function)"},De={AUTO:"auto",TOP:"top",RIGHT:y()?"left":"right",BOTTOM:"bottom",LEFT:y()?"right":"left"},Ie={animation:!0,template:'<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',trigger:"hover focus",title:"",delay:0,html:!1,selector:!1,placement:"top",offset:[0,0],container:!1,fallbackPlacements:["top","right","bottom","left"],boundary:"clippingParents",customClass:"",sanitize:!0,sanitizeFn:null,allowList:Te,popperConfig:null},Ne={HIDE:"hide.bs.tooltip",HIDDEN:"hidden.bs.tooltip",SHOW:"show.bs.tooltip",SHOWN:"shown.bs.tooltip",INSERTED:"inserted.bs.tooltip",CLICK:"click.bs.tooltip",FOCUSIN:"focusin.bs.tooltip",FOCUSOUT:"focusout.bs.tooltip",MOUSEENTER:"mouseenter.bs.tooltip",MOUSELEAVE:"mouseleave.bs.tooltip"},Se="fade",xe="show",Me="show",Pe="out",je="hover",He="focus";class $e extends z{constructor(t,e){if(void 0===i)throw new TypeError("Bootstrap's tooltips require Popper (https://popper.js.org)");super(t),this._isEnabled=!0,this._timeout=0,this._hoverState="",this._activeTrigger={},this._popper=null,this._config=this._getConfig(e),this.tip=null,this._setListeners()}static get Default(){return Ie}static get NAME(){return Ce}static get Event(){return Ne}static get DefaultType(){return Oe}enable(){this._isEnabled=!0}disable(){this._isEnabled=!1}toggleEnabled(){this._isEnabled=!this._isEnabled}toggle(t){if(this._isEnabled)if(t){const e=this._initializeOnDelegatedTarget(t);e._activeTrigger.click=!e._activeTrigger.click,e._isWithActiveTrigger()?e._enter(null,e):e._leave(null,e)}else{if(this.getTipElement().classList.contains(xe))return void this._leave(null,this);this._enter(null,this)}}dispose(){clearTimeout(this._timeout),B.off(this._element.closest(".modal"),"hide.bs.modal",this._hideModalHandler),this.tip&&this.tip.remove(),this._popper&&this._popper.destroy(),super.dispose()}show(){if("none"===this._element.style.display)throw new Error("Please use show on visible elements");if(!this.isWithContent()||!this._isEnabled)return;const t=B.trigger(this._element,this.constructor.Event.SHOW),e=m(this._element),s=null===e?this._element.ownerDocument.documentElement.contains(this._element):e.contains(this._element);if(t.defaultPrevented||!s)return;const n=this.getTipElement(),r=o(this.constructor.NAME);n.setAttribute("id",r),this._element.setAttribute("aria-describedby",r),this.setContent(),this._config.animation&&n.classList.add(Se);const a="function"==typeof this._config.placement?this._config.placement.call(this,n,this._element):this._config.placement,l=this._getAttachment(a);this._addAttachmentClass(l);const{container:c}=this._config;q.set(n,this.constructor.DATA_KEY,this),this._element.ownerDocument.documentElement.contains(this.tip)||(c.appendChild(n),B.trigger(this._element,this.constructor.Event.INSERTED)),this._popper?this._popper.update():this._popper=i.createPopper(this._element,n,this._getPopperConfig(l)),n.classList.add(xe);const h="function"==typeof this._config.customClass?this._config.customClass():this._config.customClass;h&&n.classList.add(...h.split(" ")),"ontouchstart"in document.documentElement&&[].concat(...document.body.children).forEach((t=>{B.on(t,"mouseover",p)}));const d=this.tip.classList.contains(Se);this._queueCallback((()=>{const t=this._hoverState;this._hoverState=null,B.trigger(this._element,this.constructor.Event.SHOWN),t===Pe&&this._leave(null,this)}),this.tip,d)}hide(){if(!this._popper)return;const t=this.getTipElement();if(B.trigger(this._element,this.constructor.Event.HIDE).defaultPrevented)return;t.classList.remove(xe),"ontouchstart"in document.documentElement&&[].concat(...document.body.children).forEach((t=>B.off(t,"mouseover",p))),this._activeTrigger.click=!1,this._activeTrigger.focus=!1,this._activeTrigger.hover=!1;const e=this.tip.classList.contains(Se);this._queueCallback((()=>{this._isWithActiveTrigger()||(this._hoverState!==Me&&t.remove(),this._cleanTipClass(),this._element.removeAttribute("aria-describedby"),B.trigger(this._element,this.constructor.Event.HIDDEN),this._popper&&(this._popper.destroy(),this._popper=null))}),this.tip,e),this._hoverState=""}update(){null!==this._popper&&this._popper.update()}isWithContent(){return Boolean(this.getTitle())}getTipElement(){if(this.tip)return this.tip;const t=document.createElement("div");return t.innerHTML=this._config.template,this.tip=t.children[0],this.tip}setContent(){const t=this.getTipElement();this.setElementContent(s.findOne(".tooltip-inner",t),this.getTitle()),t.classList.remove(Se,xe)}setElementContent(t,e){if(null!==t)return h(e)?(e=d(e),void(this._config.html?e.parentNode!==t&&(t.innerHTML="",t.appendChild(e)):t.textContent=e.textContent)):void(this._config.html?(this._config.sanitize&&(e=Ae(e,this._config.allowList,this._config.sanitizeFn)),t.innerHTML=e):t.textContent=e)}getTitle(){let t=this._element.getAttribute("data-bs-original-title");return t||(t="function"==typeof this._config.title?this._config.title.call(this._element):this._config.title),t}updateAttachment(t){return"right"===t?"end":"left"===t?"start":t}_initializeOnDelegatedTarget(t,e){const i=this.constructor.DATA_KEY;return(e=e||q.get(t.delegateTarget,i))||(e=new this.constructor(t.delegateTarget,this._getDelegateConfig()),q.set(t.delegateTarget,i,e)),e}_getOffset(){const{offset:t}=this._config;return"string"==typeof t?t.split(",").map((t=>Number.parseInt(t,10))):"function"==typeof t?e=>t(e,this._element):t}_getPopperConfig(t){const e={placement:t,modifiers:[{name:"flip",options:{fallbackPlacements:this._config.fallbackPlacements}},{name:"offset",options:{offset:this._getOffset()}},{name:"preventOverflow",options:{boundary:this._config.boundary}},{name:"arrow",options:{element:`.${this.constructor.NAME}-arrow`}},{name:"onChange",enabled:!0,phase:"afterWrite",fn:t=>this._handlePopperPlacementChange(t)}],onFirstUpdate:t=>{t.options.placement!==t.placement&&this._handlePopperPlacementChange(t)}};return{...e,..."function"==typeof this._config.popperConfig?this._config.popperConfig(e):this._config.popperConfig}}_addAttachmentClass(t){this.getTipElement().classList.add(`bs-tooltip-${this.updateAttachment(t)}`)}_getAttachment(t){return De[t.toUpperCase()]}_setListeners(){this._config.trigger.split(" ").forEach((t=>{if("click"===t)B.on(this._element,this.constructor.Event.CLICK,this._config.selector,(t=>this.toggle(t)));else if("manual"!==t){const e=t===je?this.constructor.Event.MOUSEENTER:this.constructor.Event.FOCUSIN,i=t===je?this.constructor.Event.MOUSELEAVE:this.constructor.Event.FOCUSOUT;B.on(this._element,e,this._config.selector,(t=>this._enter(t))),B.on(this._element,i,this._config.selector,(t=>this._leave(t)))}})),this._hideModalHandler=()=>{this._element&&this.hide()},B.on(this._element.closest(".modal"),"hide.bs.modal",this._hideModalHandler),this._config.selector?this._config={...this._config,trigger:"manual",selector:""}:this._fixTitle()}_fixTitle(){const t=this._element.getAttribute("title"),e=typeof this._element.getAttribute("data-bs-original-title");(t||"string"!==e)&&(this._element.setAttribute("data-bs-original-title",t||""),!t||this._element.getAttribute("aria-label")||this._element.textContent||this._element.setAttribute("aria-label",t),this._element.setAttribute("title",""))}_enter(t,e){e=this._initializeOnDelegatedTarget(t,e),t&&(e._activeTrigger["focusin"===t.type?He:je]=!0),e.getTipElement().classList.contains(xe)||e._hoverState===Me?e._hoverState=Me:(clearTimeout(e._timeout),e._hoverState=Me,e._config.delay&&e._config.delay.show?e._timeout=setTimeout((()=>{e._hoverState===Me&&e.show()}),e._config.delay.show):e.show())}_leave(t,e){e=this._initializeOnDelegatedTarget(t,e),t&&(e._activeTrigger["focusout"===t.type?He:je]=e._element.contains(t.relatedTarget)),e._isWithActiveTrigger()||(clearTimeout(e._timeout),e._hoverState=Pe,e._config.delay&&e._config.delay.hide?e._timeout=setTimeout((()=>{e._hoverState===Pe&&e.hide()}),e._config.delay.hide):e.hide())}_isWithActiveTrigger(){for(const t in this._activeTrigger)if(this._activeTrigger[t])return!0;return!1}_getConfig(t){const e=X.getDataAttributes(this._element);return Object.keys(e).forEach((t=>{ke.has(t)&&delete e[t]})),(t={...this.constructor.Default,...e,..."object"==typeof t&&t?t:{}}).container=!1===t.container?document.body:d(t.container),"number"==typeof t.delay&&(t.delay={show:t.delay,hide:t.delay}),"number"==typeof t.title&&(t.title=t.title.toString()),"number"==typeof t.content&&(t.content=t.content.toString()),u(Ce,t,this.constructor.DefaultType),t.sanitize&&(t.template=Ae(t.template,t.allowList,t.sanitizeFn)),t}_getDelegateConfig(){const t={};if(this._config)for(const e in this._config)this.constructor.Default[e]!==this._config[e]&&(t[e]=this._config[e]);return t}_cleanTipClass(){const t=this.getTipElement(),e=t.getAttribute("class").match(Le);null!==e&&e.length>0&&e.map((t=>t.trim())).forEach((e=>t.classList.remove(e)))}_handlePopperPlacementChange(t){const{state:e}=t;e&&(this.tip=e.elements.popper,this._cleanTipClass(),this._addAttachmentClass(this._getAttachment(e.placement)))}static jQueryInterface(t){return this.each((function(){const e=$e.getOrCreateInstance(this,t);if("string"==typeof t){if(void 0===e[t])throw new TypeError(`No method named "${t}"`);e[t]()}}))}}E($e);const Re=new RegExp("(^|\\s)bs-popover\\S+","g"),Be={...$e.Default,placement:"right",offset:[0,8],trigger:"click",content:"",template:'<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'},We={...$e.DefaultType,content:"(string|element|function)"},qe={HIDE:"hide.bs.popover",HIDDEN:"hidden.bs.popover",SHOW:"show.bs.popover",SHOWN:"shown.bs.popover",INSERTED:"inserted.bs.popover",CLICK:"click.bs.popover",FOCUSIN:"focusin.bs.popover",FOCUSOUT:"focusout.bs.popover",MOUSEENTER:"mouseenter.bs.popover",MOUSELEAVE:"mouseleave.bs.popover"},ze=".popover-header",Fe=".popover-body";class Ue extends $e{static get Default(){return Be}static get NAME(){return"popover"}static get Event(){return qe}static get DefaultType(){return We}isWithContent(){return this.getTitle()||this._getContent()}getTipElement(){return this.tip||(this.tip=super.getTipElement(),this.getTitle()||s.findOne(ze,this.tip).remove(),this._getContent()||s.findOne(Fe,this.tip).remove()),this.tip}setContent(){const t=this.getTipElement();this.setElementContent(s.findOne(ze,t),this.getTitle());let e=this._getContent();"function"==typeof e&&(e=e.call(this._element)),this.setElementContent(s.findOne(Fe,t),e),t.classList.remove("fade","show")}_addAttachmentClass(t){this.getTipElement().classList.add(`bs-popover-${this.updateAttachment(t)}`)}_getContent(){return this._element.getAttribute("data-bs-content")||this._config.content}_cleanTipClass(){const t=this.getTipElement(),e=t.getAttribute("class").match(Re);null!==e&&e.length>0&&e.map((t=>t.trim())).forEach((e=>t.classList.remove(e)))}static jQueryInterface(t){return this.each((function(){const e=Ue.getOrCreateInstance(this,t);if("string"==typeof t){if(void 0===e[t])throw new TypeError(`No method named "${t}"`);e[t]()}}))}}E(Ue);const Ke="scrollspy",Ve=".bs.scrollspy",Qe={offset:10,method:"auto",target:""},Xe={offset:"number",method:"string",target:"(string|element)"},Ye="dropdown-item",Ge="active",Ze=".nav-link",Je="position";class ti extends z{constructor(t,e){super(t),this._scrollElement="BODY"===this._element.tagName?window:this._element,this._config=this._getConfig(e),this._selector=`${this._config.target} .nav-link, ${this._config.target} .list-group-item, ${this._config.target} .dropdown-item`,this._offsets=[],this._targets=[],this._activeTarget=null,this._scrollHeight=0,B.on(this._scrollElement,"scroll.bs.scrollspy",(()=>this._process())),this.refresh(),this._process()}static get Default(){return Qe}static get NAME(){return Ke}refresh(){const t=this._scrollElement===this._scrollElement.window?"offset":Je,e="auto"===this._config.method?t:this._config.method,i=e===Je?this._getScrollTop():0;this._offsets=[],this._targets=[],this._scrollHeight=this._getScrollHeight();s.find(this._selector).map((t=>{const n=a(t),o=n?s.findOne(n):null;if(o){const t=o.getBoundingClientRect();if(t.width||t.height)return[X[e](o).top+i,n]}return null})).filter((t=>t)).sort(((t,e)=>t[0]-e[0])).forEach((t=>{this._offsets.push(t[0]),this._targets.push(t[1])}))}dispose(){B.off(this._scrollElement,Ve),super.dispose()}_getConfig(t){if("string"!=typeof(t={...Qe,...X.getDataAttributes(this._element),..."object"==typeof t&&t?t:{}}).target&&h(t.target)){let{id:e}=t.target;e||(e=o(Ke),t.target.id=e),t.target=`#${e}`}return u(Ke,t,Xe),t}_getScrollTop(){return this._scrollElement===window?this._scrollElement.pageYOffset:this._scrollElement.scrollTop}_getScrollHeight(){return this._scrollElement.scrollHeight||Math.max(document.body.scrollHeight,document.documentElement.scrollHeight)}_getOffsetHeight(){return this._scrollElement===window?window.innerHeight:this._scrollElement.getBoundingClientRect().height}_process(){const t=this._getScrollTop()+this._config.offset,e=this._getScrollHeight(),i=this._config.offset+e-this._getOffsetHeight();if(this._scrollHeight!==e&&this.refresh(),t>=i){const t=this._targets[this._targets.length-1];this._activeTarget!==t&&this._activate(t)}else{if(this._activeTarget&&t<this._offsets[0]&&this._offsets[0]>0)return this._activeTarget=null,void this._clear();for(let e=this._offsets.length;e--;){this._activeTarget!==this._targets[e]&&t>=this._offsets[e]&&(void 0===this._offsets[e+1]||t<this._offsets[e+1])&&this._activate(this._targets[e])}}}_activate(t){this._activeTarget=t,this._clear();const e=this._selector.split(",").map((e=>`${e}[data-bs-target="${t}"],${e}[href="${t}"]`)),i=s.findOne(e.join(","));i.classList.contains(Ye)?(s.findOne(".dropdown-toggle",i.closest(".dropdown")).classList.add(Ge),i.classList.add(Ge)):(i.classList.add(Ge),s.parents(i,".nav, .list-group").forEach((t=>{s.prev(t,".nav-link, .list-group-item").forEach((t=>t.classList.add(Ge))),s.prev(t,".nav-item").forEach((t=>{s.children(t,Ze).forEach((t=>t.classList.add(Ge)))}))}))),B.trigger(this._scrollElement,"activate.bs.scrollspy",{relatedTarget:t})}_clear(){s.find(this._selector).filter((t=>t.classList.contains(Ge))).forEach((t=>t.classList.remove(Ge)))}static jQueryInterface(t){return this.each((function(){const e=ti.getOrCreateInstance(this,t);if("string"==typeof t){if(void 0===e[t])throw new TypeError(`No method named "${t}"`);e[t]()}}))}}B.on(window,"load.bs.scrollspy.data-api",(()=>{s.find('[data-bs-spy="scroll"]').forEach((t=>new ti(t)))})),E(ti);const ei="active",ii="fade",si="show",ni=".active",oi=":scope > li > .active";class ri extends z{static get NAME(){return"tab"}show(){if(this._element.parentNode&&this._element.parentNode.nodeType===Node.ELEMENT_NODE&&this._element.classList.contains(ei))return;let t;const e=l(this._element),i=this._element.closest(".nav, .list-group");if(i){const e="UL"===i.nodeName||"OL"===i.nodeName?oi:ni;t=s.find(e,i),t=t[t.length-1]}const n=t?B.trigger(t,"hide.bs.tab",{relatedTarget:this._element}):null;if(B.trigger(this._element,"show.bs.tab",{relatedTarget:t}).defaultPrevented||null!==n&&n.defaultPrevented)return;this._activate(this._element,i);const o=()=>{B.trigger(t,"hidden.bs.tab",{relatedTarget:this._element}),B.trigger(this._element,"shown.bs.tab",{relatedTarget:t})};e?this._activate(e,e.parentNode,o):o()}_activate(t,e,i){const n=(!e||"UL"!==e.nodeName&&"OL"!==e.nodeName?s.children(e,ni):s.find(oi,e))[0],o=i&&n&&n.classList.contains(ii),r=()=>this._transitionComplete(t,n,i);n&&o?(n.classList.remove(si),this._queueCallback(r,t,!0)):r()}_transitionComplete(t,e,i){if(e){e.classList.remove(ei);const t=s.findOne(":scope > .dropdown-menu .active",e.parentNode);t&&t.classList.remove(ei),"tab"===e.getAttribute("role")&&e.setAttribute("aria-selected",!1)}t.classList.add(ei),"tab"===t.getAttribute("role")&&t.setAttribute("aria-selected",!0),_(t),t.classList.contains(ii)&&t.classList.add(si);let n=t.parentNode;if(n&&"LI"===n.nodeName&&(n=n.parentNode),n&&n.classList.contains("dropdown-menu")){const e=t.closest(".dropdown");e&&s.find(".dropdown-toggle",e).forEach((t=>t.classList.add(ei))),t.setAttribute("aria-expanded",!0)}i&&i()}static jQueryInterface(t){return this.each((function(){const e=ri.getOrCreateInstance(this);if("string"==typeof t){if(void 0===e[t])throw new TypeError(`No method named "${t}"`);e[t]()}}))}}B.on(document,"click.bs.tab.data-api",'[data-bs-toggle="tab"], [data-bs-toggle="pill"], [data-bs-toggle="list"]',(function(t){if(["A","AREA"].includes(this.tagName)&&t.preventDefault(),f(this))return;ri.getOrCreateInstance(this).show()})),E(ri);const ai="toast",li="hide",ci="show",hi="showing",di={animation:"boolean",autohide:"boolean",delay:"number"},ui={animation:!0,autohide:!0,delay:5e3};class gi extends z{constructor(t,e){super(t),this._config=this._getConfig(e),this._timeout=null,this._hasMouseInteraction=!1,this._hasKeyboardInteraction=!1,this._setListeners()}static get DefaultType(){return di}static get Default(){return ui}static get NAME(){return ai}show(){if(B.trigger(this._element,"show.bs.toast").defaultPrevented)return;this._clearTimeout(),this._config.animation&&this._element.classList.add("fade");this._element.classList.remove(li),_(this._element),this._element.classList.add(hi),this._queueCallback((()=>{this._element.classList.remove(hi),this._element.classList.add(ci),B.trigger(this._element,"shown.bs.toast"),this._maybeScheduleHide()}),this._element,this._config.animation)}hide(){if(!this._element.classList.contains(ci))return;if(B.trigger(this._element,"hide.bs.toast").defaultPrevented)return;this._element.classList.remove(ci),this._queueCallback((()=>{this._element.classList.add(li),B.trigger(this._element,"hidden.bs.toast")}),this._element,this._config.animation)}dispose(){this._clearTimeout(),this._element.classList.contains(ci)&&this._element.classList.remove(ci),super.dispose()}_getConfig(t){return t={...ui,...X.getDataAttributes(this._element),..."object"==typeof t&&t?t:{}},u(ai,t,this.constructor.DefaultType),t}_maybeScheduleHide(){this._config.autohide&&(this._hasMouseInteraction||this._hasKeyboardInteraction||(this._timeout=setTimeout((()=>{this.hide()}),this._config.delay)))}_onInteraction(t,e){switch(t.type){case"mouseover":case"mouseout":this._hasMouseInteraction=e;break;case"focusin":case"focusout":this._hasKeyboardInteraction=e;break}if(e)return void this._clearTimeout();const i=t.relatedTarget;this._element===i||this._element.contains(i)||this._maybeScheduleHide()}_setListeners(){B.on(this._element,"click.dismiss.bs.toast",'[data-bs-dismiss="toast"]',(()=>this.hide())),B.on(this._element,"mouseover.bs.toast",(t=>this._onInteraction(t,!0))),B.on(this._element,"mouseout.bs.toast",(t=>this._onInteraction(t,!1))),B.on(this._element,"focusin.bs.toast",(t=>this._onInteraction(t,!0))),B.on(this._element,"focusout.bs.toast",(t=>this._onInteraction(t,!1)))}_clearTimeout(){clearTimeout(this._timeout),this._timeout=null}static jQueryInterface(t){return this.each((function(){const e=gi.getOrCreateInstance(this,t);if("string"==typeof t){if(void 0===e[t])throw new TypeError(`No method named "${t}"`);e[t](this)}}))}}return E(gi),{Alert:F,Button:K,Carousel:lt,Collapse:vt,Dropdown:Rt,Modal:he,Offcanvas:be,Popover:Ue,ScrollSpy:ti,Tab:ri,Toast:gi,Tooltip:$e}}));
+ * Bootstrap v3.3.5 (http://getbootstrap.com)
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under the MIT license
+ */
+if ("undefined" == typeof jQuery) throw new Error("Bootstrap's JavaScript requires jQuery"); + function(a) {
+    "use strict";
+    var b = a.fn.jquery.split(" ")[0].split(".");
+    if (b[0] < 2 && b[1] < 9 || 1 == b[0] && 9 == b[1] && b[2] < 1) throw new Error("Bootstrap's JavaScript requires jQuery version 1.9.1 or higher")
+}(jQuery), + function(a) {
+    "use strict";
+
+    function b() {
+        var a = document.createElement("bootstrap"),
+            b = {
+                WebkitTransition: "webkitTransitionEnd",
+                MozTransition: "transitionend",
+                OTransition: "oTransitionEnd otransitionend",
+                transition: "transitionend"
+            };
+        for (var c in b)
+            if (void 0 !== a.style[c]) return {
+                end: b[c]
+            };
+        return !1
+    }
+    a.fn.emulateTransitionEnd = function(b) {
+        var c = !1,
+            d = this;
+        a(this).one("bsTransitionEnd", function() {
+            c = !0
+        });
+        var e = function() {
+            c || a(d).trigger(a.support.transition.end)
+        };
+        return setTimeout(e, b), this
+    }, a(function() {
+        a.support.transition = b(), a.support.transition && (a.event.special.bsTransitionEnd = {
+            bindType: a.support.transition.end,
+            delegateType: a.support.transition.end,
+            handle: function(b) {
+                return a(b.target).is(this) ? b.handleObj.handler.apply(this, arguments) : void 0
+            }
+        })
+    })
+}(jQuery), + function(a) {
+    "use strict";
+
+    function b(b) {
+        return this.each(function() {
+            var c = a(this),
+                e = c.data("bs.alert");
+            e || c.data("bs.alert", e = new d(this)), "string" == typeof b && e[b].call(c)
+        })
+    }
+    var c = '[data-dismiss="alert"]',
+        d = function(b) {
+            a(b).on("click", c, this.close)
+        };
+    d.VERSION = "3.3.5", d.TRANSITION_DURATION = 150, d.prototype.close = function(b) {
+        function c() {
+            g.detach().trigger("closed.bs.alert").remove()
+        }
+        var e = a(this),
+            f = e.attr("data-target");
+        f || (f = e.attr("href"), f = f && f.replace(/.*(?=#[^\s]*$)/, ""));
+        var g = a(f);
+        b && b.preventDefault(), g.length || (g = e.closest(".alert")), g.trigger(b = a.Event("close.bs.alert")), b.isDefaultPrevented() || (g.removeClass("in"), a.support.transition && g.hasClass("fade") ? g.one("bsTransitionEnd", c).emulateTransitionEnd(d.TRANSITION_DURATION) : c())
+    };
+    var e = a.fn.alert;
+    a.fn.alert = b, a.fn.alert.Constructor = d, a.fn.alert.noConflict = function() {
+        return a.fn.alert = e, this
+    }, a(document).on("click.bs.alert.data-api", c, d.prototype.close)
+}(jQuery), + function(a) {
+    "use strict";
+
+    function b(b) {
+        return this.each(function() {
+            var d = a(this),
+                e = d.data("bs.button"),
+                f = "object" == typeof b && b;
+            e || d.data("bs.button", e = new c(this, f)), "toggle" == b ? e.toggle() : b && e.setState(b)
+        })
+    }
+    var c = function(b, d) {
+        this.$element = a(b), this.options = a.extend({}, c.DEFAULTS, d), this.isLoading = !1
+    };
+    c.VERSION = "3.3.5", c.DEFAULTS = {
+        loadingText: "loading..."
+    }, c.prototype.setState = function(b) {
+        var c = "disabled",
+            d = this.$element,
+            e = d.is("input") ? "val" : "html",
+            f = d.data();
+        b += "Text", null == f.resetText && d.data("resetText", d[e]()), setTimeout(a.proxy(function() {
+            d[e](null == f[b] ? this.options[b] : f[b]), "loadingText" == b ? (this.isLoading = !0, d.addClass(c).attr(c, c)) : this.isLoading && (this.isLoading = !1, d.removeClass(c).removeAttr(c))
+        }, this), 0)
+    }, c.prototype.toggle = function() {
+        var a = !0,
+            b = this.$element.closest('[data-toggle="buttons"]');
+        if (b.length) {
+            var c = this.$element.find("input");
+            "radio" == c.prop("type") ? (c.prop("checked") && (a = !1), b.find(".active").removeClass("active"), this.$element.addClass("active")) : "checkbox" == c.prop("type") && (c.prop("checked") !== this.$element.hasClass("active") && (a = !1), this.$element.toggleClass("active")), c.prop("checked", this.$element.hasClass("active")), a && c.trigger("change")
+        } else this.$element.attr("aria-pressed", !this.$element.hasClass("active")), this.$element.toggleClass("active")
+    };
+    var d = a.fn.button;
+    a.fn.button = b, a.fn.button.Constructor = c, a.fn.button.noConflict = function() {
+        return a.fn.button = d, this
+    }, a(document).on("click.bs.button.data-api", '[data-toggle^="button"]', function(c) {
+        var d = a(c.target);
+        d.hasClass("btn") || (d = d.closest(".btn")), b.call(d, "toggle"), a(c.target).is('input[type="radio"]') || a(c.target).is('input[type="checkbox"]') || c.preventDefault()
+    }).on("focus.bs.button.data-api blur.bs.button.data-api", '[data-toggle^="button"]', function(b) {
+        a(b.target).closest(".btn").toggleClass("focus", /^focus(in)?$/.test(b.type))
+    })
+}(jQuery), + function(a) {
+    "use strict";
+
+    function b(b) {
+        return this.each(function() {
+            var d = a(this),
+                e = d.data("bs.carousel"),
+                f = a.extend({}, c.DEFAULTS, d.data(), "object" == typeof b && b),
+                g = "string" == typeof b ? b : f.slide;
+            e || d.data("bs.carousel", e = new c(this, f)), "number" == typeof b ? e.to(b) : g ? e[g]() : f.interval && e.pause().cycle()
+        })
+    }
+    var c = function(b, c) {
+        this.$element = a(b), this.$indicators = this.$element.find(".carousel-indicators"), this.options = c, this.paused = null, this.sliding = null, this.interval = null, this.$active = null, this.$items = null, this.options.keyboard && this.$element.on("keydown.bs.carousel", a.proxy(this.keydown, this)), "hover" == this.options.pause && !("ontouchstart" in document.documentElement) && this.$element.on("mouseenter.bs.carousel", a.proxy(this.pause, this)).on("mouseleave.bs.carousel", a.proxy(this.cycle, this))
+    };
+    c.VERSION = "3.3.5", c.TRANSITION_DURATION = 600, c.DEFAULTS = {
+        interval: 5e3,
+        pause: "hover",
+        wrap: !0,
+        keyboard: !0
+    }, c.prototype.keydown = function(a) {
+        if (!/input|textarea/i.test(a.target.tagName)) {
+            switch (a.which) {
+                case 37:
+                    this.prev();
+                    break;
+                case 39:
+                    this.next();
+                    break;
+                default:
+                    return
+            }
+            a.preventDefault()
+        }
+    }, c.prototype.cycle = function(b) {
+        return b || (this.paused = !1), this.interval && clearInterval(this.interval), this.options.interval && !this.paused && (this.interval = setInterval(a.proxy(this.next, this), this.options.interval)), this
+    }, c.prototype.getItemIndex = function(a) {
+        return this.$items = a.parent().children(".item"), this.$items.index(a || this.$active)
+    }, c.prototype.getItemForDirection = function(a, b) {
+        var c = this.getItemIndex(b),
+            d = "prev" == a && 0 === c || "next" == a && c == this.$items.length - 1;
+        if (d && !this.options.wrap) return b;
+        var e = "prev" == a ? -1 : 1,
+            f = (c + e) % this.$items.length;
+        return this.$items.eq(f)
+    }, c.prototype.to = function(a) {
+        var b = this,
+            c = this.getItemIndex(this.$active = this.$element.find(".item.active"));
+        return a > this.$items.length - 1 || 0 > a ? void 0 : this.sliding ? this.$element.one("slid.bs.carousel", function() {
+            b.to(a)
+        }) : c == a ? this.pause().cycle() : this.slide(a > c ? "next" : "prev", this.$items.eq(a))
+    }, c.prototype.pause = function(b) {
+        return b || (this.paused = !0), this.$element.find(".next, .prev").length && a.support.transition && (this.$element.trigger(a.support.transition.end), this.cycle(!0)), this.interval = clearInterval(this.interval), this
+    }, c.prototype.next = function() {
+        return this.sliding ? void 0 : this.slide("next")
+    }, c.prototype.prev = function() {
+        return this.sliding ? void 0 : this.slide("prev")
+    }, c.prototype.slide = function(b, d) {
+        var e = this.$element.find(".item.active"),
+            f = d || this.getItemForDirection(b, e),
+            g = this.interval,
+            h = "next" == b ? "left" : "right",
+            i = this;
+        if (f.hasClass("active")) return this.sliding = !1;
+        var j = f[0],
+            k = a.Event("slide.bs.carousel", {
+                relatedTarget: j,
+                direction: h
+            });
+        if (this.$element.trigger(k), !k.isDefaultPrevented()) {
+            if (this.sliding = !0, g && this.pause(), this.$indicators.length) {
+                this.$indicators.find(".active").removeClass("active");
+                var l = a(this.$indicators.children()[this.getItemIndex(f)]);
+                l && l.addClass("active")
+            }
+            var m = a.Event("slid.bs.carousel", {
+                relatedTarget: j,
+                direction: h
+            });
+            return a.support.transition && this.$element.hasClass("slide") ? (f.addClass(b), f[0].offsetWidth, e.addClass(h), f.addClass(h), e.one("bsTransitionEnd", function() {
+                f.removeClass([b, h].join(" ")).addClass("active"), e.removeClass(["active", h].join(" ")), i.sliding = !1, setTimeout(function() {
+                    i.$element.trigger(m)
+                }, 0)
+            }).emulateTransitionEnd(c.TRANSITION_DURATION)) : (e.removeClass("active"), f.addClass("active"), this.sliding = !1, this.$element.trigger(m)), g && this.cycle(), this
+        }
+    };
+    var d = a.fn.carousel;
+    a.fn.carousel = b, a.fn.carousel.Constructor = c, a.fn.carousel.noConflict = function() {
+        return a.fn.carousel = d, this
+    };
+    var e = function(c) {
+        var d, e = a(this),
+            f = a(e.attr("data-target") || (d = e.attr("href")) && d.replace(/.*(?=#[^\s]+$)/, ""));
+        if (f.hasClass("carousel")) {
+            var g = a.extend({}, f.data(), e.data()),
+                h = e.attr("data-slide-to");
+            h && (g.interval = !1), b.call(f, g), h && f.data("bs.carousel").to(h), c.preventDefault()
+        }
+    };
+    a(document).on("click.bs.carousel.data-api", "[data-slide]", e).on("click.bs.carousel.data-api", "[data-slide-to]", e), a(window).on("load", function() {
+        a('[data-ride="carousel"]').each(function() {
+            var c = a(this);
+            b.call(c, c.data())
+        })
+    })
+}(jQuery), + function(a) {
+    "use strict";
+
+    function b(b) {
+        var c, d = b.attr("data-target") || (c = b.attr("href")) && c.replace(/.*(?=#[^\s]+$)/, "");
+        return a(d)
+    }
+
+    function c(b) {
+        return this.each(function() {
+            var c = a(this),
+                e = c.data("bs.collapse"),
+                f = a.extend({}, d.DEFAULTS, c.data(), "object" == typeof b && b);
+            !e && f.toggle && /show|hide/.test(b) && (f.toggle = !1), e || c.data("bs.collapse", e = new d(this, f)), "string" == typeof b && e[b]()
+        })
+    }
+    var d = function(b, c) {
+        this.$element = a(b), this.options = a.extend({}, d.DEFAULTS, c), this.$trigger = a('[data-toggle="collapse"][href="#' + b.id + '"],[data-toggle="collapse"][data-target="#' + b.id + '"]'), this.transitioning = null, this.options.parent ? this.$parent = this.getParent() : this.addAriaAndCollapsedClass(this.$element, this.$trigger), this.options.toggle && this.toggle()
+    };
+    d.VERSION = "3.3.5", d.TRANSITION_DURATION = 350, d.DEFAULTS = {
+        toggle: !0
+    }, d.prototype.dimension = function() {
+        var a = this.$element.hasClass("width");
+        return a ? "width" : "height"
+    }, d.prototype.show = function() {
+        if (!this.transitioning && !this.$element.hasClass("in")) {
+            var b, e = this.$parent && this.$parent.children(".panel").children(".in, .collapsing");
+            if (!(e && e.length && (b = e.data("bs.collapse"), b && b.transitioning))) {
+                var f = a.Event("show.bs.collapse");
+                if (this.$element.trigger(f), !f.isDefaultPrevented()) {
+                    e && e.length && (c.call(e, "hide"), b || e.data("bs.collapse", null));
+                    var g = this.dimension();
+                    this.$element.removeClass("collapse").addClass("collapsing")[g](0).attr("aria-expanded", !0), this.$trigger.removeClass("collapsed").attr("aria-expanded", !0), this.transitioning = 1;
+                    var h = function() {
+                        this.$element.removeClass("collapsing").addClass("collapse in")[g](""), this.transitioning = 0, this.$element.trigger("shown.bs.collapse")
+                    };
+                    if (!a.support.transition) return h.call(this);
+                    var i = a.camelCase(["scroll", g].join("-"));
+                    this.$element.one("bsTransitionEnd", a.proxy(h, this)).emulateTransitionEnd(d.TRANSITION_DURATION)[g](this.$element[0][i])
+                }
+            }
+        }
+    }, d.prototype.hide = function() {
+        if (!this.transitioning && this.$element.hasClass("in")) {
+            var b = a.Event("hide.bs.collapse");
+            if (this.$element.trigger(b), !b.isDefaultPrevented()) {
+                var c = this.dimension();
+                this.$element[c](this.$element[c]())[0].offsetHeight, this.$element.addClass("collapsing").removeClass("collapse in").attr("aria-expanded", !1), this.$trigger.addClass("collapsed").attr("aria-expanded", !1), this.transitioning = 1;
+                var e = function() {
+                    this.transitioning = 0, this.$element.removeClass("collapsing").addClass("collapse").trigger("hidden.bs.collapse")
+                };
+                return a.support.transition ? void this.$element[c](0).one("bsTransitionEnd", a.proxy(e, this)).emulateTransitionEnd(d.TRANSITION_DURATION) : e.call(this)
+            }
+        }
+    }, d.prototype.toggle = function() {
+        this[this.$element.hasClass("in") ? "hide" : "show"]()
+    }, d.prototype.getParent = function() {
+        return a(this.options.parent).find('[data-toggle="collapse"][data-parent="' + this.options.parent + '"]').each(a.proxy(function(c, d) {
+            var e = a(d);
+            this.addAriaAndCollapsedClass(b(e), e)
+        }, this)).end()
+    }, d.prototype.addAriaAndCollapsedClass = function(a, b) {
+        var c = a.hasClass("in");
+        a.attr("aria-expanded", c), b.toggleClass("collapsed", !c).attr("aria-expanded", c)
+    };
+    var e = a.fn.collapse;
+    a.fn.collapse = c, a.fn.collapse.Constructor = d, a.fn.collapse.noConflict = function() {
+        return a.fn.collapse = e, this
+    }, a(document).on("click.bs.collapse.data-api", '[data-toggle="collapse"]', function(d) {
+        var e = a(this);
+        e.attr("data-target") || d.preventDefault();
+        var f = b(e),
+            g = f.data("bs.collapse"),
+            h = g ? "toggle" : e.data();
+        c.call(f, h)
+    })
+}(jQuery), + function(a) {
+    "use strict";
+
+    function b(b) {
+        var c = b.attr("data-target");
+        c || (c = b.attr("href"), c = c && /#[A-Za-z]/.test(c) && c.replace(/.*(?=#[^\s]*$)/, ""));
+        var d = c && a(c);
+        return d && d.length ? d : b.parent()
+    }
+
+    function c(c) {
+        c && 3 === c.which || (a(e).remove(), a(f).each(function() {
+            var d = a(this),
+                e = b(d),
+                f = {
+                    relatedTarget: this
+                };
+            e.hasClass("open") && (c && "click" == c.type && /input|textarea/i.test(c.target.tagName) && a.contains(e[0], c.target) || (e.trigger(c = a.Event("hide.bs.dropdown", f)), c.isDefaultPrevented() || (d.attr("aria-expanded", "false"), e.removeClass("open").trigger("hidden.bs.dropdown", f))))
+        }))
+    }
+
+    function d(b) {
+        return this.each(function() {
+            var c = a(this),
+                d = c.data("bs.dropdown");
+            d || c.data("bs.dropdown", d = new g(this)), "string" == typeof b && d[b].call(c)
+        })
+    }
+    var e = ".dropdown-backdrop",
+        f = '[data-toggle="dropdown"]',
+        g = function(b) {
+            a(b).on("click.bs.dropdown", this.toggle)
+        };
+    g.VERSION = "3.3.5", g.prototype.toggle = function(d) {
+        var e = a(this);
+        if (!e.is(".disabled, :disabled")) {
+            var f = b(e),
+                g = f.hasClass("open");
+            if (c(), !g) {
+                "ontouchstart" in document.documentElement && !f.closest(".navbar-nav").length && a(document.createElement("div")).addClass("dropdown-backdrop").insertAfter(a(this)).on("click", c);
+                var h = {
+                    relatedTarget: this
+                };
+                if (f.trigger(d = a.Event("show.bs.dropdown", h)), d.isDefaultPrevented()) return;
+                e.trigger("focus").attr("aria-expanded", "true"), f.toggleClass("open").trigger("shown.bs.dropdown", h)
+            }
+            return !1
+        }
+    }, g.prototype.keydown = function(c) {
+        if (/(38|40|27|32)/.test(c.which) && !/input|textarea/i.test(c.target.tagName)) {
+            var d = a(this);
+            if (c.preventDefault(), c.stopPropagation(), !d.is(".disabled, :disabled")) {
+                var e = b(d),
+                    g = e.hasClass("open");
+                if (!g && 27 != c.which || g && 27 == c.which) return 27 == c.which && e.find(f).trigger("focus"), d.trigger("click");
+                var h = " li:not(.disabled):visible a",
+                    i = e.find(".dropdown-menu" + h);
+                if (i.length) {
+                    var j = i.index(c.target);
+                    38 == c.which && j > 0 && j--, 40 == c.which && j < i.length - 1 && j++, ~j || (j = 0), i.eq(j).trigger("focus")
+                }
+            }
+        }
+    };
+    var h = a.fn.dropdown;
+    a.fn.dropdown = d, a.fn.dropdown.Constructor = g, a.fn.dropdown.noConflict = function() {
+        return a.fn.dropdown = h, this
+    }, a(document).on("click.bs.dropdown.data-api", c).on("click.bs.dropdown.data-api", ".dropdown form", function(a) {
+        a.stopPropagation()
+    }).on("click.bs.dropdown.data-api", f, g.prototype.toggle).on("keydown.bs.dropdown.data-api", f, g.prototype.keydown).on("keydown.bs.dropdown.data-api", ".dropdown-menu", g.prototype.keydown)
+}(jQuery), + function(a) {
+    "use strict";
+
+    function b(b, d) {
+        return this.each(function() {
+            var e = a(this),
+                f = e.data("bs.modal"),
+                g = a.extend({}, c.DEFAULTS, e.data(), "object" == typeof b && b);
+            f || e.data("bs.modal", f = new c(this, g)), "string" == typeof b ? f[b](d) : g.show && f.show(d)
+        })
+    }
+    var c = function(b, c) {
+        this.options = c, this.$body = a(document.body), this.$element = a(b), this.$dialog = this.$element.find(".modal-dialog"), this.$backdrop = null, this.isShown = null, this.originalBodyPad = null, this.scrollbarWidth = 0, this.ignoreBackdropClick = !1, this.options.remote && this.$element.find(".modal-content").load(this.options.remote, a.proxy(function() {
+            this.$element.trigger("loaded.bs.modal")
+        }, this))
+    };
+    c.VERSION = "3.3.5", c.TRANSITION_DURATION = 300, c.BACKDROP_TRANSITION_DURATION = 150, c.DEFAULTS = {
+        backdrop: !0,
+        keyboard: !0,
+        show: !0
+    }, c.prototype.toggle = function(a) {
+        return this.isShown ? this.hide() : this.show(a)
+    }, c.prototype.show = function(b) {
+        var d = this,
+            e = a.Event("show.bs.modal", {
+                relatedTarget: b
+            });
+        this.$element.trigger(e), this.isShown || e.isDefaultPrevented() || (this.isShown = !0, this.checkScrollbar(), this.setScrollbar(), this.$body.addClass("modal-open"), this.escape(), this.resize(), this.$element.on("click.dismiss.bs.modal", '[data-dismiss="modal"]', a.proxy(this.hide, this)), this.$dialog.on("mousedown.dismiss.bs.modal", function() {
+            d.$element.one("mouseup.dismiss.bs.modal", function(b) {
+                a(b.target).is(d.$element) && (d.ignoreBackdropClick = !0)
+            })
+        }), this.backdrop(function() {
+            var e = a.support.transition && d.$element.hasClass("fade");
+            d.$element.parent().length || d.$element.appendTo(d.$body), d.$element.show().scrollTop(0), d.adjustDialog(), e && d.$element[0].offsetWidth, d.$element.addClass("in"), d.enforceFocus();
+            var f = a.Event("shown.bs.modal", {
+                relatedTarget: b
+            });
+            e ? d.$dialog.one("bsTransitionEnd", function() {
+                d.$element.trigger("focus").trigger(f)
+            }).emulateTransitionEnd(c.TRANSITION_DURATION) : d.$element.trigger("focus").trigger(f)
+        }))
+    }, c.prototype.hide = function(b) {
+        b && b.preventDefault(), b = a.Event("hide.bs.modal"), this.$element.trigger(b), this.isShown && !b.isDefaultPrevented() && (this.isShown = !1, this.escape(), this.resize(), a(document).off("focusin.bs.modal"), this.$element.removeClass("in").off("click.dismiss.bs.modal").off("mouseup.dismiss.bs.modal"), this.$dialog.off("mousedown.dismiss.bs.modal"), a.support.transition && this.$element.hasClass("fade") ? this.$element.one("bsTransitionEnd", a.proxy(this.hideModal, this)).emulateTransitionEnd(c.TRANSITION_DURATION) : this.hideModal())
+    }, c.prototype.enforceFocus = function() {
+        a(document).off("focusin.bs.modal").on("focusin.bs.modal", a.proxy(function(a) {
+            this.$element[0] === a.target || this.$element.has(a.target).length || this.$element.trigger("focus")
+        }, this))
+    }, c.prototype.escape = function() {
+        this.isShown && this.options.keyboard ? this.$element.on("keydown.dismiss.bs.modal", a.proxy(function(a) {
+            27 == a.which && this.hide()
+        }, this)) : this.isShown || this.$element.off("keydown.dismiss.bs.modal")
+    }, c.prototype.resize = function() {
+        this.isShown ? a(window).on("resize.bs.modal", a.proxy(this.handleUpdate, this)) : a(window).off("resize.bs.modal")
+    }, c.prototype.hideModal = function() {
+        var a = this;
+        this.$element.hide(), this.backdrop(function() {
+            a.$body.removeClass("modal-open"), a.resetAdjustments(), a.resetScrollbar(), a.$element.trigger("hidden.bs.modal")
+        })
+    }, c.prototype.removeBackdrop = function() {
+        this.$backdrop && this.$backdrop.remove(), this.$backdrop = null
+    }, c.prototype.backdrop = function(b) {
+        var d = this,
+            e = this.$element.hasClass("fade") ? "fade" : "";
+        if (this.isShown && this.options.backdrop) {
+            var f = a.support.transition && e;
+            if (this.$backdrop = a(document.createElement("div")).addClass("modal-backdrop " + e).appendTo(this.$body), this.$element.on("click.dismiss.bs.modal", a.proxy(function(a) {
+                    return this.ignoreBackdropClick ? void(this.ignoreBackdropClick = !1) : void(a.target === a.currentTarget && ("static" == this.options.backdrop ? this.$element[0].focus() : this.hide()))
+                }, this)), f && this.$backdrop[0].offsetWidth, this.$backdrop.addClass("in"), !b) return;
+            f ? this.$backdrop.one("bsTransitionEnd", b).emulateTransitionEnd(c.BACKDROP_TRANSITION_DURATION) : b()
+        } else if (!this.isShown && this.$backdrop) {
+            this.$backdrop.removeClass("in");
+            var g = function() {
+                d.removeBackdrop(), b && b()
+            };
+            a.support.transition && this.$element.hasClass("fade") ? this.$backdrop.one("bsTransitionEnd", g).emulateTransitionEnd(c.BACKDROP_TRANSITION_DURATION) : g()
+        } else b && b()
+    }, c.prototype.handleUpdate = function() {
+        this.adjustDialog()
+    }, c.prototype.adjustDialog = function() {
+        var a = this.$element[0].scrollHeight > document.documentElement.clientHeight;
+        this.$element.css({
+            paddingLeft: !this.bodyIsOverflowing && a ? this.scrollbarWidth : "",
+            paddingRight: this.bodyIsOverflowing && !a ? this.scrollbarWidth : ""
+        })
+    }, c.prototype.resetAdjustments = function() {
+        this.$element.css({
+            paddingLeft: "",
+            paddingRight: ""
+        })
+    }, c.prototype.checkScrollbar = function() {
+        var a = window.innerWidth;
+        if (!a) {
+            var b = document.documentElement.getBoundingClientRect();
+            a = b.right - Math.abs(b.left)
+        }
+        this.bodyIsOverflowing = document.body.clientWidth < a, this.scrollbarWidth = this.measureScrollbar()
+    }, c.prototype.setScrollbar = function() {
+        var a = parseInt(this.$body.css("padding-right") || 0, 10);
+        this.originalBodyPad = document.body.style.paddingRight || "", this.bodyIsOverflowing && this.$body.css("padding-right", a + this.scrollbarWidth)
+    }, c.prototype.resetScrollbar = function() {
+        this.$body.css("padding-right", this.originalBodyPad)
+    }, c.prototype.measureScrollbar = function() {
+        var a = document.createElement("div");
+        a.className = "modal-scrollbar-measure", this.$body.append(a);
+        var b = a.offsetWidth - a.clientWidth;
+        return this.$body[0].removeChild(a), b
+    };
+    var d = a.fn.modal;
+    a.fn.modal = b, a.fn.modal.Constructor = c, a.fn.modal.noConflict = function() {
+        return a.fn.modal = d, this
+    }, a(document).on("click.bs.modal.data-api", '[data-toggle="modal"]', function(c) {
+        var d = a(this),
+            e = d.attr("href"),
+            f = a(d.attr("data-target") || e && e.replace(/.*(?=#[^\s]+$)/, "")),
+            g = f.data("bs.modal") ? "toggle" : a.extend({
+                remote: !/#/.test(e) && e
+            }, f.data(), d.data());
+        d.is("a") && c.preventDefault(), f.one("show.bs.modal", function(a) {
+            a.isDefaultPrevented() || f.one("hidden.bs.modal", function() {
+                d.is(":visible") && d.trigger("focus")
+            })
+        }), b.call(f, g, this)
+    })
+}(jQuery), + function(a) {
+    "use strict";
+
+    function b(b) {
+        return this.each(function() {
+            var d = a(this),
+                e = d.data("bs.tooltip"),
+                f = "object" == typeof b && b;
+            (e || !/destroy|hide/.test(b)) && (e || d.data("bs.tooltip", e = new c(this, f)), "string" == typeof b && e[b]())
+        })
+    }
+    var c = function(a, b) {
+        this.type = null, this.options = null, this.enabled = null, this.timeout = null, this.hoverState = null, this.$element = null, this.inState = null, this.init("tooltip", a, b)
+    };
+    c.VERSION = "3.3.5", c.TRANSITION_DURATION = 150, c.DEFAULTS = {
+        animation: !0,
+        placement: "top",
+        selector: !1,
+        template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+        trigger: "hover focus",
+        title: "",
+        delay: 0,
+        html: !1,
+        container: !1,
+        viewport: {
+            selector: "body",
+            padding: 0
+        }
+    }, c.prototype.init = function(b, c, d) {
+        if (this.enabled = !0, this.type = b, this.$element = a(c), this.options = this.getOptions(d), this.$viewport = this.options.viewport && a(a.isFunction(this.options.viewport) ? this.options.viewport.call(this, this.$element) : this.options.viewport.selector || this.options.viewport), this.inState = {
+                click: !1,
+                hover: !1,
+                focus: !1
+            }, this.$element[0] instanceof document.constructor && !this.options.selector) throw new Error("`selector` option must be specified when initializing " + this.type + " on the window.document object!");
+        for (var e = this.options.trigger.split(" "), f = e.length; f--;) {
+            var g = e[f];
+            if ("click" == g) this.$element.on("click." + this.type, this.options.selector, a.proxy(this.toggle, this));
+            else if ("manual" != g) {
+                var h = "hover" == g ? "mouseenter" : "focusin",
+                    i = "hover" == g ? "mouseleave" : "focusout";
+                this.$element.on(h + "." + this.type, this.options.selector, a.proxy(this.enter, this)), this.$element.on(i + "." + this.type, this.options.selector, a.proxy(this.leave, this))
+            }
+        }
+        this.options.selector ? this._options = a.extend({}, this.options, {
+            trigger: "manual",
+            selector: ""
+        }) : this.fixTitle()
+    }, c.prototype.getDefaults = function() {
+        return c.DEFAULTS
+    }, c.prototype.getOptions = function(b) {
+        return b = a.extend({}, this.getDefaults(), this.$element.data(), b), b.delay && "number" == typeof b.delay && (b.delay = {
+            show: b.delay,
+            hide: b.delay
+        }), b
+    }, c.prototype.getDelegateOptions = function() {
+        var b = {},
+            c = this.getDefaults();
+        return this._options && a.each(this._options, function(a, d) {
+            c[a] != d && (b[a] = d)
+        }), b
+    }, c.prototype.enter = function(b) {
+        var c = b instanceof this.constructor ? b : a(b.currentTarget).data("bs." + this.type);
+        return c || (c = new this.constructor(b.currentTarget, this.getDelegateOptions()), a(b.currentTarget).data("bs." + this.type, c)), b instanceof a.Event && (c.inState["focusin" == b.type ? "focus" : "hover"] = !0), c.tip().hasClass("in") || "in" == c.hoverState ? void(c.hoverState = "in") : (clearTimeout(c.timeout), c.hoverState = "in", c.options.delay && c.options.delay.show ? void(c.timeout = setTimeout(function() {
+            "in" == c.hoverState && c.show()
+        }, c.options.delay.show)) : c.show())
+    }, c.prototype.isInStateTrue = function() {
+        for (var a in this.inState)
+            if (this.inState[a]) return !0;
+        return !1
+    }, c.prototype.leave = function(b) {
+        var c = b instanceof this.constructor ? b : a(b.currentTarget).data("bs." + this.type);
+        return c || (c = new this.constructor(b.currentTarget, this.getDelegateOptions()), a(b.currentTarget).data("bs." + this.type, c)), b instanceof a.Event && (c.inState["focusout" == b.type ? "focus" : "hover"] = !1), c.isInStateTrue() ? void 0 : (clearTimeout(c.timeout), c.hoverState = "out", c.options.delay && c.options.delay.hide ? void(c.timeout = setTimeout(function() {
+            "out" == c.hoverState && c.hide()
+        }, c.options.delay.hide)) : c.hide())
+    }, c.prototype.show = function() {
+        var b = a.Event("show.bs." + this.type);
+        if (this.hasContent() && this.enabled) {
+            this.$element.trigger(b);
+            var d = a.contains(this.$element[0].ownerDocument.documentElement, this.$element[0]);
+            if (b.isDefaultPrevented() || !d) return;
+            var e = this,
+                f = this.tip(),
+                g = this.getUID(this.type);
+            this.setContent(), f.attr("id", g), this.$element.attr("aria-describedby", g), this.options.animation && f.addClass("fade");
+            var h = "function" == typeof this.options.placement ? this.options.placement.call(this, f[0], this.$element[0]) : this.options.placement,
+                i = /\s?auto?\s?/i,
+                j = i.test(h);
+            j && (h = h.replace(i, "") || "top"), f.detach().css({
+                top: 0,
+                left: 0,
+                display: "block"
+            }).addClass(h).data("bs." + this.type, this), this.options.container ? f.appendTo(this.options.container) : f.insertAfter(this.$element), this.$element.trigger("inserted.bs." + this.type);
+            var k = this.getPosition(),
+                l = f[0].offsetWidth,
+                m = f[0].offsetHeight;
+            if (j) {
+                var n = h,
+                    o = this.getPosition(this.$viewport);
+                h = "bottom" == h && k.bottom + m > o.bottom ? "top" : "top" == h && k.top - m < o.top ? "bottom" : "right" == h && k.right + l > o.width ? "left" : "left" == h && k.left - l < o.left ? "right" : h, f.removeClass(n).addClass(h)
+            }
+            var p = this.getCalculatedOffset(h, k, l, m);
+            this.applyPlacement(p, h);
+            var q = function() {
+                var a = e.hoverState;
+                e.$element.trigger("shown.bs." + e.type), e.hoverState = null, "out" == a && e.leave(e)
+            };
+            a.support.transition && this.$tip.hasClass("fade") ? f.one("bsTransitionEnd", q).emulateTransitionEnd(c.TRANSITION_DURATION) : q()
+        }
+    }, c.prototype.applyPlacement = function(b, c) {
+        var d = this.tip(),
+            e = d[0].offsetWidth,
+            f = d[0].offsetHeight,
+            g = parseInt(d.css("margin-top"), 10),
+            h = parseInt(d.css("margin-left"), 10);
+        isNaN(g) && (g = 0), isNaN(h) && (h = 0), b.top += g, b.left += h, a.offset.setOffset(d[0], a.extend({
+            using: function(a) {
+                d.css({
+                    top: Math.round(a.top),
+                    left: Math.round(a.left)
+                })
+            }
+        }, b), 0), d.addClass("in");
+        var i = d[0].offsetWidth,
+            j = d[0].offsetHeight;
+        "top" == c && j != f && (b.top = b.top + f - j);
+        var k = this.getViewportAdjustedDelta(c, b, i, j);
+        k.left ? b.left += k.left : b.top += k.top;
+        var l = /top|bottom/.test(c),
+            m = l ? 2 * k.left - e + i : 2 * k.top - f + j,
+            n = l ? "offsetWidth" : "offsetHeight";
+        d.offset(b), this.replaceArrow(m, d[0][n], l)
+    }, c.prototype.replaceArrow = function(a, b, c) {
+        this.arrow().css(c ? "left" : "top", 50 * (1 - a / b) + "%").css(c ? "top" : "left", "")
+    }, c.prototype.setContent = function() {
+        var a = this.tip(),
+            b = this.getTitle();
+        a.find(".tooltip-inner")[this.options.html ? "html" : "text"](b), a.removeClass("fade in top bottom left right")
+    }, c.prototype.hide = function(b) {
+        function d() {
+            "in" != e.hoverState && f.detach(), e.$element.removeAttr("aria-describedby").trigger("hidden.bs." + e.type), b && b()
+        }
+        var e = this,
+            f = a(this.$tip),
+            g = a.Event("hide.bs." + this.type);
+        return this.$element.trigger(g), g.isDefaultPrevented() ? void 0 : (f.removeClass("in"), a.support.transition && f.hasClass("fade") ? f.one("bsTransitionEnd", d).emulateTransitionEnd(c.TRANSITION_DURATION) : d(), this.hoverState = null, this)
+    }, c.prototype.fixTitle = function() {
+        var a = this.$element;
+        (a.attr("title") || "string" != typeof a.attr("data-original-title")) && a.attr("data-original-title", a.attr("title") || "").attr("title", "")
+    }, c.prototype.hasContent = function() {
+        return this.getTitle()
+    }, c.prototype.getPosition = function(b) {
+        b = b || this.$element;
+        var c = b[0],
+            d = "BODY" == c.tagName,
+            e = c.getBoundingClientRect();
+        null == e.width && (e = a.extend({}, e, {
+            width: e.right - e.left,
+            height: e.bottom - e.top
+        }));
+        var f = d ? {
+                top: 0,
+                left: 0
+            } : b.offset(),
+            g = {
+                scroll: d ? document.documentElement.scrollTop || document.body.scrollTop : b.scrollTop()
+            },
+            h = d ? {
+                width: a(window).width(),
+                height: a(window).height()
+            } : null;
+        return a.extend({}, e, g, h, f)
+    }, c.prototype.getCalculatedOffset = function(a, b, c, d) {
+        return "bottom" == a ? {
+            top: b.top + b.height,
+            left: b.left + b.width / 2 - c / 2
+        } : "top" == a ? {
+            top: b.top - d,
+            left: b.left + b.width / 2 - c / 2
+        } : "left" == a ? {
+            top: b.top + b.height / 2 - d / 2,
+            left: b.left - c
+        } : {
+            top: b.top + b.height / 2 - d / 2,
+            left: b.left + b.width
+        }
+    }, c.prototype.getViewportAdjustedDelta = function(a, b, c, d) {
+        var e = {
+            top: 0,
+            left: 0
+        };
+        if (!this.$viewport) return e;
+        var f = this.options.viewport && this.options.viewport.padding || 0,
+            g = this.getPosition(this.$viewport);
+        if (/right|left/.test(a)) {
+            var h = b.top - f - g.scroll,
+                i = b.top + f - g.scroll + d;
+            h < g.top ? e.top = g.top - h : i > g.top + g.height && (e.top = g.top + g.height - i)
+        } else {
+            var j = b.left - f,
+                k = b.left + f + c;
+            j < g.left ? e.left = g.left - j : k > g.right && (e.left = g.left + g.width - k)
+        }
+        return e
+    }, c.prototype.getTitle = function() {
+        var a, b = this.$element,
+            c = this.options;
+        return a = b.attr("data-original-title") || ("function" == typeof c.title ? c.title.call(b[0]) : c.title)
+    }, c.prototype.getUID = function(a) {
+        do a += ~~(1e6 * Math.random()); while (document.getElementById(a));
+        return a
+    }, c.prototype.tip = function() {
+        if (!this.$tip && (this.$tip = a(this.options.template), 1 != this.$tip.length)) throw new Error(this.type + " `template` option must consist of exactly 1 top-level element!");
+        return this.$tip
+    }, c.prototype.arrow = function() {
+        return this.$arrow = this.$arrow || this.tip().find(".tooltip-arrow")
+    }, c.prototype.enable = function() {
+        this.enabled = !0
+    }, c.prototype.disable = function() {
+        this.enabled = !1
+    }, c.prototype.toggleEnabled = function() {
+        this.enabled = !this.enabled
+    }, c.prototype.toggle = function(b) {
+        var c = this;
+        b && (c = a(b.currentTarget).data("bs." + this.type), c || (c = new this.constructor(b.currentTarget, this.getDelegateOptions()), a(b.currentTarget).data("bs." + this.type, c))), b ? (c.inState.click = !c.inState.click, c.isInStateTrue() ? c.enter(c) : c.leave(c)) : c.tip().hasClass("in") ? c.leave(c) : c.enter(c)
+    }, c.prototype.destroy = function() {
+        var a = this;
+        clearTimeout(this.timeout), this.hide(function() {
+            a.$element.off("." + a.type).removeData("bs." + a.type), a.$tip && a.$tip.detach(), a.$tip = null, a.$arrow = null, a.$viewport = null
+        })
+    };
+    var d = a.fn.tooltip;
+    a.fn.tooltip = b, a.fn.tooltip.Constructor = c, a.fn.tooltip.noConflict = function() {
+        return a.fn.tooltip = d, this
+    }
+}(jQuery), + function(a) {
+    "use strict";
+
+    function b(b) {
+        return this.each(function() {
+            var d = a(this),
+                e = d.data("bs.popover"),
+                f = "object" == typeof b && b;
+            (e || !/destroy|hide/.test(b)) && (e || d.data("bs.popover", e = new c(this, f)), "string" == typeof b && e[b]())
+        })
+    }
+    var c = function(a, b) {
+        this.init("popover", a, b)
+    };
+    if (!a.fn.tooltip) throw new Error("Popover requires tooltip.js");
+    c.VERSION = "3.3.5", c.DEFAULTS = a.extend({}, a.fn.tooltip.Constructor.DEFAULTS, {
+        placement: "right",
+        trigger: "click",
+        content: "",
+        template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+    }), c.prototype = a.extend({}, a.fn.tooltip.Constructor.prototype), c.prototype.constructor = c, c.prototype.getDefaults = function() {
+        return c.DEFAULTS
+    }, c.prototype.setContent = function() {
+        var a = this.tip(),
+            b = this.getTitle(),
+            c = this.getContent();
+        a.find(".popover-title")[this.options.html ? "html" : "text"](b), a.find(".popover-content").children().detach().end()[this.options.html ? "string" == typeof c ? "html" : "append" : "text"](c), a.removeClass("fade top bottom left right in"), a.find(".popover-title").html() || a.find(".popover-title").hide()
+    }, c.prototype.hasContent = function() {
+        return this.getTitle() || this.getContent()
+    }, c.prototype.getContent = function() {
+        var a = this.$element,
+            b = this.options;
+        return a.attr("data-content") || ("function" == typeof b.content ? b.content.call(a[0]) : b.content)
+    }, c.prototype.arrow = function() {
+        return this.$arrow = this.$arrow || this.tip().find(".arrow")
+    };
+    var d = a.fn.popover;
+    a.fn.popover = b, a.fn.popover.Constructor = c, a.fn.popover.noConflict = function() {
+        return a.fn.popover = d, this
+    }
+}(jQuery), + function(a) {
+    "use strict";
+
+    function b(c, d) {
+        this.$body = a(document.body), this.$scrollElement = a(a(c).is(document.body) ? window : c), this.options = a.extend({}, b.DEFAULTS, d), this.selector = (this.options.target || "") + " .nav li > a", this.offsets = [], this.targets = [], this.activeTarget = null, this.scrollHeight = 0, this.$scrollElement.on("scroll.bs.scrollspy", a.proxy(this.process, this)), this.refresh(), this.process()
+    }
+
+    function c(c) {
+        return this.each(function() {
+            var d = a(this),
+                e = d.data("bs.scrollspy"),
+                f = "object" == typeof c && c;
+            e || d.data("bs.scrollspy", e = new b(this, f)), "string" == typeof c && e[c]()
+        })
+    }
+    b.VERSION = "3.3.5", b.DEFAULTS = {
+        offset: 10
+    }, b.prototype.getScrollHeight = function() {
+        return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }, b.prototype.refresh = function() {
+        var b = this,
+            c = "offset",
+            d = 0;
+        this.offsets = [], this.targets = [], this.scrollHeight = this.getScrollHeight(), a.isWindow(this.$scrollElement[0]) || (c = "position", d = this.$scrollElement.scrollTop()), this.$body.find(this.selector).map(function() {
+            var b = a(this),
+                e = b.data("target") || b.attr("href"),
+                f = /^#./.test(e) && a(e);
+            return f && f.length && f.is(":visible") && [
+                [f[c]().top + d, e]
+            ] || null
+        }).sort(function(a, b) {
+            return a[0] - b[0]
+        }).each(function() {
+            b.offsets.push(this[0]), b.targets.push(this[1])
+        })
+    }, b.prototype.process = function() {
+        var a, b = this.$scrollElement.scrollTop() + this.options.offset,
+            c = this.getScrollHeight(),
+            d = this.options.offset + c - this.$scrollElement.height(),
+            e = this.offsets,
+            f = this.targets,
+            g = this.activeTarget;
+        if (this.scrollHeight != c && this.refresh(), b >= d) return g != (a = f[f.length - 1]) && this.activate(a);
+        if (g && b < e[0]) return this.activeTarget = null, this.clear();
+        for (a = e.length; a--;) g != f[a] && b >= e[a] && (void 0 === e[a + 1] || b < e[a + 1]) && this.activate(f[a])
+    }, b.prototype.activate = function(b) {
+        this.activeTarget = b, this.clear();
+        var c = this.selector + '[data-target="' + b + '"],' + this.selector + '[href="' + b + '"]',
+            d = a(c).parents("li").addClass("active");
+        d.parent(".dropdown-menu").length && (d = d.closest("li.dropdown").addClass("active")),
+            d.trigger("activate.bs.scrollspy")
+    }, b.prototype.clear = function() {
+        a(this.selector).parentsUntil(this.options.target, ".active").removeClass("active")
+    };
+    var d = a.fn.scrollspy;
+    a.fn.scrollspy = c, a.fn.scrollspy.Constructor = b, a.fn.scrollspy.noConflict = function() {
+        return a.fn.scrollspy = d, this
+    }, a(window).on("load.bs.scrollspy.data-api", function() {
+        a('[data-spy="scroll"]').each(function() {
+            var b = a(this);
+            c.call(b, b.data())
+        })
+    })
+}(jQuery), + function(a) {
+    "use strict";
+
+    function b(b) {
+        return this.each(function() {
+            var d = a(this),
+                e = d.data("bs.tab");
+            e || d.data("bs.tab", e = new c(this)), "string" == typeof b && e[b]()
+        })
+    }
+    var c = function(b) {
+        this.element = a(b)
+    };
+    c.VERSION = "3.3.5", c.TRANSITION_DURATION = 150, c.prototype.show = function() {
+        var b = this.element,
+            c = b.closest("ul:not(.dropdown-menu)"),
+            d = b.data("target");
+        if (d || (d = b.attr("href"), d = d && d.replace(/.*(?=#[^\s]*$)/, "")), !b.parent("li").hasClass("active")) {
+            var e = c.find(".active:last a"),
+                f = a.Event("hide.bs.tab", {
+                    relatedTarget: b[0]
+                }),
+                g = a.Event("show.bs.tab", {
+                    relatedTarget: e[0]
+                });
+            if (e.trigger(f), b.trigger(g), !g.isDefaultPrevented() && !f.isDefaultPrevented()) {
+                var h = a(d);
+                this.activate(b.closest("li"), c), this.activate(h, h.parent(), function() {
+                    e.trigger({
+                        type: "hidden.bs.tab",
+                        relatedTarget: b[0]
+                    }), b.trigger({
+                        type: "shown.bs.tab",
+                        relatedTarget: e[0]
+                    })
+                })
+            }
+        }
+    }, c.prototype.activate = function(b, d, e) {
+        function f() {
+            g.removeClass("active").find("> .dropdown-menu > .active").removeClass("active").end().find('[data-toggle="tab"]').attr("aria-expanded", !1), b.addClass("active").find('[data-toggle="tab"]').attr("aria-expanded", !0), h ? (b[0].offsetWidth, b.addClass("in")) : b.removeClass("fade"), b.parent(".dropdown-menu").length && b.closest("li.dropdown").addClass("active").end().find('[data-toggle="tab"]').attr("aria-expanded", !0), e && e()
+        }
+        var g = d.find("> .active"),
+            h = e && a.support.transition && (g.length && g.hasClass("fade") || !!d.find("> .fade").length);
+        g.length && h ? g.one("bsTransitionEnd", f).emulateTransitionEnd(c.TRANSITION_DURATION) : f(), g.removeClass("in")
+    };
+    var d = a.fn.tab;
+    a.fn.tab = b, a.fn.tab.Constructor = c, a.fn.tab.noConflict = function() {
+        return a.fn.tab = d, this
+    };
+    var e = function(c) {
+        c.preventDefault(), b.call(a(this), "show")
+    };
+    a(document).on("click.bs.tab.data-api", '[data-toggle="tab"]', e).on("click.bs.tab.data-api", '[data-toggle="pill"]', e)
+}(jQuery), + function(a) {
+    "use strict";
+
+    function b(b) {
+        return this.each(function() {
+            var d = a(this),
+                e = d.data("bs.affix"),
+                f = "object" == typeof b && b;
+            e || d.data("bs.affix", e = new c(this, f)), "string" == typeof b && e[b]()
+        })
+    }
+    var c = function(b, d) {
+        this.options = a.extend({}, c.DEFAULTS, d), this.$target = a(this.options.target).on("scroll.bs.affix.data-api", a.proxy(this.checkPosition, this)).on("click.bs.affix.data-api", a.proxy(this.checkPositionWithEventLoop, this)), this.$element = a(b), this.affixed = null, this.unpin = null, this.pinnedOffset = null, this.checkPosition()
+    };
+    c.VERSION = "3.3.5", c.RESET = "affix affix-top affix-bottom", c.DEFAULTS = {
+        offset: 0,
+        target: window
+    }, c.prototype.getState = function(a, b, c, d) {
+        var e = this.$target.scrollTop(),
+            f = this.$element.offset(),
+            g = this.$target.height();
+        if (null != c && "top" == this.affixed) return c > e ? "top" : !1;
+        if ("bottom" == this.affixed) return null != c ? e + this.unpin <= f.top ? !1 : "bottom" : a - d >= e + g ? !1 : "bottom";
+        var h = null == this.affixed,
+            i = h ? e : f.top,
+            j = h ? g : b;
+        return null != c && c >= e ? "top" : null != d && i + j >= a - d ? "bottom" : !1
+    }, c.prototype.getPinnedOffset = function() {
+        if (this.pinnedOffset) return this.pinnedOffset;
+        this.$element.removeClass(c.RESET).addClass("affix");
+        var a = this.$target.scrollTop(),
+            b = this.$element.offset();
+        return this.pinnedOffset = b.top - a
+    }, c.prototype.checkPositionWithEventLoop = function() {
+        setTimeout(a.proxy(this.checkPosition, this), 1)
+    }, c.prototype.checkPosition = function() {
+        if (this.$element.is(":visible")) {
+            var b = this.$element.height(),
+                d = this.options.offset,
+                e = d.top,
+                f = d.bottom,
+                g = Math.max(a(document).height(), a(document.body).height());
+            "object" != typeof d && (f = e = d), "function" == typeof e && (e = d.top(this.$element)), "function" == typeof f && (f = d.bottom(this.$element));
+            var h = this.getState(g, b, e, f);
+            if (this.affixed != h) {
+                null != this.unpin && this.$element.css("top", "");
+                var i = "affix" + (h ? "-" + h : ""),
+                    j = a.Event(i + ".bs.affix");
+                if (this.$element.trigger(j), j.isDefaultPrevented()) return;
+                this.affixed = h, this.unpin = "bottom" == h ? this.getPinnedOffset() : null, this.$element.removeClass(c.RESET).addClass(i).trigger(i.replace("affix", "affixed") + ".bs.affix")
+            }
+            "bottom" == h && this.$element.offset({
+                top: g - b - f
+            })
+        }
+    };
+    var d = a.fn.affix;
+    a.fn.affix = b, a.fn.affix.Constructor = c, a.fn.affix.noConflict = function() {
+        return a.fn.affix = d, this
+    }, a(window).on("load", function() {
+        a('[data-spy="affix"]').each(function() {
+            var c = a(this),
+                d = c.data();
+            d.offset = d.offset || {}, null != d.offsetBottom && (d.offset.bottom = d.offsetBottom), null != d.offsetTop && (d.offset.top = d.offsetTop), b.call(c, d)
+        })
+    })
+}(jQuery);
