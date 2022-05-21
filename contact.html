@@ -80,29 +80,29 @@
 			<div class="col-sm-6">
 				<form id="form_1" novalidate data-success-msg="Your message has been sent." data-fail-msg="Sorry it seems that our mail server is not responding, Sorry for the inconvenience!">
 					<div class="form-group">
-						<label>
+						<label for="name">
 							Nom
 						</label>
-						<input id="name" class="form-control" aria-label="Inscrivez votre nom ici" required />
+						<input id="name" class="form-control" name="name" aria-labelledby="name" aria-required="true" />
 					</div>
 					<div class="form-group">
-						<label>
+						<label for="email">
 							Adresse email
 						</label>
-						<input id="email" class="form-control" aria-label="Inscrivez votre email ici" type="email" required />
+						<input id="email" class="form-control" name="email" aria-labelledby="email" type="email" aria-required="true" />
 					</div>
 					<div class="form-group">
-						<label>
+						<label for="where">
 							Comment vous nous avez connu ?
 						</label>
-						<input class="form-control" aria-label="Inscrivez le ici" required id="input_504" />
+						<input class="form-control" name="where" aria-labelledby="where" aria-required="true" id="where" />
 					</div>
 					<div class="form-group">
-						<label>
+						<label for="message">
 							Brief de votre projet (Ajoutez autant de détails que nécessaire)<br>
-						</label><textarea id="message" class="form-control" rows="4" cols="50" aria-label="Décrivez nous votre projet ici" required></textarea>
+						</label><textarea id="message" class="form-control" rows="4" cols="50" aria-labelledby="message" aria-required="true"></textarea>
 					</div> 
-					<button class="bloc-button btn btn-lg btn-block cta-hero btn-atomic-tangerine" type="submit" aria-label="Cliquez pour envoyer">
+					<button class="bloc-button btn btn-lg btn-block cta-hero btn-atomic-tangerine" type="submit" aria-label="Envoyer">
 						Envoyer
 					</button>
 				</form>
